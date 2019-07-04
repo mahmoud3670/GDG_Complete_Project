@@ -1,0 +1,80 @@
+﻿@model GDG_Project.Models.TimeMachine
+
+@{
+    ViewData["Title"] = "AbsentNote";
+    Layout = "~/Views/Shared/_BackeLayout.cshtml";
+}
+
+
+
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title"> @ViewBag.EmpID.EmpInfoNavigation.PName </h3>
+                    </div>
+                    @{if (ViewBag.mes != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" id="myAlert">
+                                <a href="#" class="close">&times;</a>
+                                <strong>عذرا!</strong>@ViewBag.mes.
+                            </div>
+                        }
+                    }
+                    <!-- /.box-header -->
+                    <div class="box-body">
+
+                        <form asp-action="AbsentNote">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                            <div class="form-group">
+                                <label asp-for="TimeDate" class="control-label">التاريخ</label>
+                                <input asp-for="TimeDate" class="form-control" type="date" required />
+                                <span asp-validation-for="TimeDate" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="NoteCase">ملاحظات  </label>
+                                <select asp-for="NoteCase" class="form-control select2" style="width: 100%;">
+                                    <option selected="selected">اختر  اذن الغياب </option>
+                                    <option value="@Model.WeekEnd"> راحه اسبوعيه </option>
+                                    <option value="@Model.Regular">  اعتيادي</option>
+                                    <option value="@Model.Emergency">  عارضه</option>
+                                    <option value="@Model.Sick">  مرضي</option>
+                                    <option value="@Model.Absence">  غياب </option>
+                                    <option value="@Model.furlough">  اذن  </option>
+                                    <option value="@Model.Reast">  بدل راحه </option>
+                                </select>
+                            </div>
+
+
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-primary">حفظ</button>
+                            </div>
+                        </form>
+                        <p>
+                            @{
+                                if (ViewBag.ex != null)
+                                {
+                                    Write(ViewBag.ex);
+                                }
+                        }
+                    </p>
+
+                </div>
+                <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+
+
+
+

@@ -1,0 +1,53 @@
+﻿@model GDG_Project.Models.Employees
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_BackeLayout.cshtml";
+}
+
+
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+
+                <!-- /.box-header -->
+                <!-- Profile Image -->
+                <div class="box box-primary ">
+                    <div class="box-body ">
+                        <center> <img class=" mx-auto d-block img-responsive img-circle" src="@Model.EmpInfoNavigation.PImg" alt="@Model.EmpInfoNavigation.PName"></center>
+                        <h3 class="profile-username text-center"> @Model.EmpInfoNavigation.PName</h3>
+                        @*<p class="text-muted text-center">مدخل بيانات </p>*@
+                        <ul class="list-group list-group-unbordered">
+                            <li class="list-group-item">
+                                <b>السن</b> <b class="pull-left">@(DateTime.Now.Year - Model.EmpInfoNavigation.PBirthDate.Year)</b>
+                            </li>
+                            <li class="list-group-item">
+                                <b>العنوان</b> <b class="pull-left">@Model.EmpInfoNavigation.PAdress</b>
+                            </li>
+                            <li class="list-group-item">
+                                <b>تليفون</b> <b class="pull-left">@Model.EmpInfoNavigation.PPhone</b>
+                            </li>
+                            <li class="list-group-item">
+                                <b>الرقم القومي</b> <b class="pull-left">@Model.EmpInfoNavigation.PNationalId</b>
+                            </li>
+
+                        </ul>
+                        <a asp-action="updateEmp" asp-route-id="@Model.EmpId" class="btn btn-primary btn-block"><b>تعديل</b></a>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+                <!-- /.box-body -->
+                --
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+
+
+

@@ -1,0 +1,87 @@
+﻿@model GDG_Project.Models.PersonInfo
+
+<div class="box-body">
+    <div class="form-group">
+        <label asp-for="PName">الاسم </label>
+        <input type="text" class="form-control" asp-for="PName" placeholder="الاسم" required>
+        <span asp-validation-for="PName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PNationalId"> الرقم القومي </label>
+        <input type="number" class="form-control" asp-for="PNationalId" placeholder="1263255562225 " required>
+        <span asp-validation-for="PNationalId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PPhone"> الهاتف </label>
+        <input type="number" class="form-control" asp-for="PPhone" placeholder="1263255562225 " required>
+        <span asp-validation-for="PPhone" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PAdress">  العنوان </label>
+        <input type="text" class="form-control" asp-for="PAdress" placeholder="banha " required>
+        <span asp-validation-for="PAdress" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PEmail"> الايميل </label>
+        <input type="email" class="form-control" asp-for="PEmail" placeholder="e@m.com ">
+        <span asp-validation-for="PEmail" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PBirthDate"> تاريخ الميلاد</label>
+        <input type="date" class="form-control" asp-for="PBirthDate" placeholder="1/1/2000 " required>
+        <span asp-validation-for="PBirthDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PStartDate">  تاريخ الاشتراك </label>
+        <input type="date" class="form-control" asp-for="PStartDate" placeholder="1/1/2017 " required>
+        <span asp-validation-for="PStartDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PGender">النوع</label>
+        <select asp-for="PGender" class="form-control">
+            <option disabled selected>النوع</option>
+            <option value="@Model.male">ذكر</option>
+            <option value="@Model.famel">انثي</option>
+        </select>
+        <span asp-validation-for="PGender" class="text-danger"></span>
+    </div>
+    @if (ViewData["Title"].ToString() == "Create")
+    {
+        <div class="form-group">
+            <label asp-for="PType">المستوي</label>
+            <select asp-for="PType" class="form-control">
+                <option disabled selected>المستوي</option>
+                <option value="@Model.TrainerLabel"> مدرب </option>
+                <option value="@Model.MembersLabel">مشترك</option>
+               
+            </select>
+            <span asp-validation-for="PType" class="text-danger"></span>
+        </div>
+    }
+    else
+    {
+        <div class="form-group">
+            <label asp-for="PType">المستوي</label>
+            <input type="text" asp-for="PType" hidden/>
+            <span asp-validation-for="PType" class="text-danger"></span>
+        </div>
+    }
+    <div class="form-group">
+        <label asp-for="PImg" for="NewsImage">صوره العضو</label>
+        <input type="file" asp-for="PImg">
+        <span asp-validation-for="PImg" class="text-danger"></span>
+    </div>
+
+</div>
+@if (ViewBag.ex != null)
+{
+    <h1>@ViewBag.ex</h1>
+}
+
+<div class="form-group">
+
+    <input type="submit" @Html.Raw(ViewData["Title"].ToString() == "Edit" ? "value=' تعديل '" : "value='اضافه'") class="btn btn-primary" />
+
+</div>
+
+

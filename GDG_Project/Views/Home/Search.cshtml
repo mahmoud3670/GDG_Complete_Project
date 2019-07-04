@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Search";
+}
+
+<div class="container">
+    @if (Model != null)
+    {
+       foreach (var item in Model)
+        {
+
+            <div class="row">
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail text-center">
+                        <img src="@item.PImg" alt="@item.PImg">
+                        <div class="caption">
+                            <h3>@item.PName</h3>
+                            <p>@item.PType</p>
+                            <p> <a class="btn btn-primary" asp-controller="Home" asp-action="Profile" asp-route-id="@item.PId" role="button" name=10>عرض البيانات</a></p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    @*else
+    {
+            <div class="alert alert-danger alert-dismissible" id="myAlert">
+                <a href="#" class="close">&times;</a>
+                <strong>من فضلك!</strong> ادخل بيانات صحيحه.
+            </div> 
+    }*@
+
+
+
+
+</div>

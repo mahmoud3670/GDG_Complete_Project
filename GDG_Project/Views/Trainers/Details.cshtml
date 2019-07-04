@@ -1,0 +1,70 @@
+﻿@model GDG_Project.Models.PersonInfo
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_BackeLayout.cshtml";
+}
+
+
+
+
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+
+                <!-- /.box-header -->
+                <!-- Profile Image -->
+                <div class="box box-primary ">
+                    <div class="box-body ">
+                        <center> <img class=" mx-auto d-block img-responsive img-circle" src="@Model.PImg" alt="User profile picture"></center>
+                        <h3 class="profile-username text-center"> @Model.PName</h3>
+                        <p class="text-muted text-center"> مدرب</p>
+                        <ul class="list-group list-group-unbordered">
+                            <li class="list-group-item">
+                                <b>عدد الانشطه   </b> <b class="pull-left">@Model.Trainer.Count()</b>
+                            </li>
+                            <li>
+                                <div class="box-body table-responsive no-padding">
+                                    <table class="table table-hover table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th> اسم النشاط </th>
+                                                <th> الحاله</th>
+                                                <th> الاختيارات</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in ViewBag.trainerAct)
+                                            {
+                                                <tr>
+                                                    <td> @item.TrainerActNavigation.ActName   </td>
+                                                    <td>@(item.TrainerActive == item.Active ? "فعال" : "غير فعال")</td>
+                                                    <td> &nbsp &nbsp <a asp-action="Edit" asp-route-id="@item.TrainerCode"><i class="fas fa-pencil-alt"></i></a></td>
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </li>
+
+                        </ul>
+
+                    </div>
+                    <!-- /.box-body -->
+                    <hr />
+
+                </div>
+                <!-- /.box -->
+                <!-- /.box-body -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+

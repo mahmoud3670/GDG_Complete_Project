@@ -1,0 +1,80 @@
+﻿@model GDG_Project.Models.School
+
+    <div class="box-body">
+        <div class="form-group">
+            <label asp-for="SchoolName">اسم المدرسه</label>
+            <input type="text" class="form-control" asp-for="SchoolName" placeholder="اسم المدرسه  " required>
+            <span asp-validation-for="SchoolName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="SchoolAct">اسم النشاط</label>
+            <select asp-for="SchoolAct" class="form-control"  asp-items="ViewBag.selectListItem">
+                <option value="0" disabled selected>اختر النشاط</option>
+             
+            </select>
+        </div>
+        <div class="form-group">
+            <label asp-for="SchoolLevel">المستوي</label>
+            <input type="text" class="form-control" asp-for="SchoolLevel" placeholder="  المستوي " required>
+            <span asp-validation-for="SchoolLevel" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="SchoolPrice">السعر</label>
+            <input type="text" class="form-control" asp-for="SchoolPrice" placeholder="السعر " required>
+            <span asp-validation-for="SchoolPrice" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="SchoolStartDay">بدايه التدريب</label>
+            <input type="date" class="form-control" asp-for="SchoolStartDay" placeholder="1/1/2018   " required>
+            <span asp-validation-for="SchoolStartDay" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="SchoolEndDay">انهايه التدريب</label>
+            <input type="date" class="form-control" asp-for="SchoolEndDay" placeholder=" 1/1/2019  " required>
+            <span asp-validation-for="SchoolEndDay" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="SchoolMaxTrainer">عدد المدربين </label>
+            <input type="number" class="form-control" asp-for="SchoolMaxTrainer" placeholder=" اقصي عدد لمدربين  " required>
+            <span asp-validation-for="SchoolMaxTrainer" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="SchoolMaxMember"> عدد المتدربين </label>
+            <input type="text" class="form-control" asp-for="SchoolMaxMember" placeholder="اقصي عدد للمتدربين  " required>
+            <span asp-validation-for="SchoolMaxMember" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="SchoolDays">مواعيد التدريب </label>
+            <input type="text" class="form-control" asp-for="SchoolDays" placeholder="الحد \الاتنين\الساعه01:30  " required>
+            <span asp-validation-for="SchoolDays" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="SchoolActive" >الحاله</label>
+            <select asp-for="SchoolActive" class="form-control">
+                <option  disabled selected>الحاله</option>
+                <option value="@Model.Active">فعال</option>
+                <option value="@Model.NotActive">غير فعال</option>
+            </select>
+            <span asp-validation-for="SchoolActive" class="text-danger"></span>
+        </div>
+
+
+        <!-- /.box -->
+
+
+    </div>
+    <!-- /.box-body -->
+    @if (ViewBag.ex != null)
+    {
+        <h1>@ViewBag.ex</h1>
+    }
+
+    <div class="form-group">
+
+        <input type="submit" @Html.Raw(ViewData["Title"].ToString() == "Edit" ? "value=' تعديل '" : "value='اضافه'") class="btn btn-primary" />
+
+    </div>
+
+
+
+

@@ -1,0 +1,89 @@
+﻿@model GDG_Project.Models.PersonInfo
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_BackeLayout.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+
+                <!-- /.box-header -->
+                <!-- Profile Image -->
+                <div class="box box-primary ">
+                    <div class="box-body ">
+                        <center> <img class=" mx-auto d-block img-responsive img-circle" src="@Model.PImg" alt="User profile picture"></center>
+                        <h3 class="profile-username text-center">@Model.PName</h3>
+                        <p class="text-muted text-center">@(DateTime.Now.Year - Model.PBirthDate.Year)</p>
+                        <ul class="list-group list-group-unbordered">
+                            <li class="list-group-item">
+                                <b>رقم العضو </b> <b class="pull-left">@Model.PId</b>
+                            </li>
+                            <li class="list-group-item">
+                                <b>عدد المدارس الفعاله </b> <b class="pull-left">
+                                    @Model.Payment.Where(x => x.PayDueDate > DateTime.Now).Count()
+                                </b>
+                            </li>
+                            <li class="list-group-item">
+                                <b>اجمالي عدد المدارس </b> <b class="pull-left">@Model.Payment.GroupBy(x => x.SchoolId).Count()</b>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                    <!-- /.box-body -->
+                    <hr />
+                    <div class="box-body table-responsive no-padding">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>المسلسل </th>
+                                    <th>اسم المدرسه</th>
+                                    <th> الحاله </th>
+                                    <th> تاريخ التجديد </th>
+                                    <th>الاختيارات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+
+
+                                @foreach (var item in ViewBag.paymentView)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.SchoolId
+                                        </td>
+                                        <td> @item.SchoolName</td>
+
+                                        <td> @(item.SchoolActive? "فعال": "متوقف" )</td>
+                                        <td>@Model.Payment.Where(x=>x.SchoolId==item.SchoolId).Select(x=>x.PayDueDate.ToString("dd/MM/yyyy")).LastOrDefault()  </td>
+
+
+                                        <td>
+                                            &nbsp &nbsp <a asp-action="ViewPay" asp-route-MemberId="@Model.PId" asp-route-SchoolId="@item.SchoolId"><i class="far fa-eye"></i></a>
+                                         
+                                        </td>
+                                    </tr>
+                                }
+
+
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+                <!-- /.box -->
+                <!-- /.box-body -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+

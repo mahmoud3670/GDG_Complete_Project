@@ -1,0 +1,229 @@
+﻿
+@{
+    ViewData["Title"] = "الملف الشخصي";
+}
+
+<div class="container wrapper" dir="rtl">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1 style="color: #8dd961;">
+            الملف الشخصي
+        </h1>
+
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="row">
+            <div class="col-md-9">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#activity" data-toggle="tab">الجوائز</a></li>
+                        <li><a href="#timeline" data-toggle="tab">السلم الزمني</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="active tab-pane" id="activity">
+                            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                                <!-- Indicators -->
+                                <ol class="carousel-indicators">
+                                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                                </ol>
+
+                                <!-- Wrapper for slides -->
+                                <div class="carousel-inner">
+                                    <div class="item active">
+                                        <img src="~/lib//dist/img/sqwash/servise.jpg" alt="Chania">
+                                        <div class="carousel-caption">
+                                            <h3>Los Angeles</h3>
+                                            <p>LA is always so much fun!</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="item">
+                                        <img src="~/lib//dist/img/swimming/servise.jpg" alt="Chicago">
+                                        <div class="carousel-caption">
+                                            <h3>Chicago</h3>
+                                            <p>Thank you, Chicago!</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="item">
+                                        <img src="~/lib//dist/img/karate/servise.jpg" alt="New York">
+                                        <div class="carousel-caption">
+                                            <h3>New York</h3>
+                                            <p>We love the Big Apple!</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Left and right controls -->
+                                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                                    <span class="glyphicon glyphicon-chevron-left"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                                    <span class="glyphicon glyphicon-chevron-right"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+
+                        </div>
+                        <!-- ###################################/.tab-pane ########################################################-->
+                        <div class="tab-pane" id="timeline">
+                            <!-- The timeline -->
+                            <ul class="timeline timeline-inverse">
+                                <!-- timeline time label -->
+                                <li class="time-label">
+                                    <span class="bg-red">
+                                        10 اكتوبر 2016
+                                    </span>
+                                </li>
+                                <!-- /.timeline-label -->
+                                <!-- timeline item -->
+                                <li>
+                                    <i class="fa fa-dumbbell bg-blue "></i>
+
+                                    <div class="timeline-item ">
+                                        <h3 class="timeline-header ">بدايه الاشتراك في السباحه</h3>
+                                    </div>
+                                </li>
+                                <!-- END timeline item -->
+                                <!-- timeline item -->
+
+
+
+
+
+
+                                <li class="time-label ">
+                                    <span class="bg-red ">
+                                        10 اكتوبر 2016
+                                    </span>
+                                </li>
+                                <!-- /.timeline-label -->
+                                <!-- timeline item -->
+                                <li>
+                                    <i class="fa fa-dumbbell  bg-blue "></i>
+
+                                    <div class="timeline-item ">
+                                        <h3 class="timeline-header ">بدايه الاشتراك في الكارتيه</h3>
+                                    </div>
+                                </li>
+                                <li class="time-label">
+                                    <span class="bg-red">
+                                        10 اكتوبر 2016
+                                    </span>
+                                </li>
+                                <!-- /.timeline-label -->
+                                <!-- timeline item -->
+                                <li>
+                                    <i class="fa fa-dumbbell bg-blue "></i>
+
+                                    <div class="timeline-item ">
+                                        <h3 class="timeline-header ">بدايه الاشتراك في كره القدم</h3>
+                                    </div>
+                                </li>
+                                <li class="time-label ">
+                                    <span class="bg-red ">
+                                        10 اكتوبر 2016
+                                    </span>
+                                </li>
+                                <!-- /.timeline-label -->
+                                <!-- timeline item -->
+                                <li>
+                                    <i class="fa fa-dumbbell bg-blue "></i>
+
+                                    <div class="timeline-item ">
+                                        <h3 class="timeline-header ">بدايه الاشتراك في السباحه</h3>
+                                    </div>
+                                </li>
+
+
+
+
+                            </ul>
+                        </div>
+                        <!--#################################################### /.tab-pane ######################################-->
+                    </div>
+                    <!-- /.tab-content -->
+                </div>
+                <!-- /.nav-tabs-custom -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-3 ">
+
+                <!-- Profile Image -->
+                <div class="box box-primary ">
+                    <div class="box-body box-profile ">
+                        <img class="profile-user-img img-responsive img-circle " src="~/lib//dist/img/user4-128x128.jpg " alt="User profile picture " style=" margin: 0 auto;width: 100px;padding: 3px;border: 3px solid #d2d6de; ">
+
+                        <h3 class="profile-username text-center ">@Model.PName</h3>
+                        
+
+                        <p class="text-muted text-center ">@Model.PType</p>
+
+                        <ul class="list-group list-group-unbordered ">
+                            <li class="list-group-item ">
+                                <b>السن</b> <a class="pull-left ">@(DateTime.Now.Year-Model.PBirthDate.Year)</a>
+                            </li>
+                            <li class="list-group-item ">
+                                <b>عدد الانشطه</b> <a class="pull-left ">2</a>
+                            </li>
+                            <li class="list-group-item ">
+                                <b>الجوائز</b> <a class="pull-left ">13</a>
+                            </li>
+                        </ul>
+
+
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+                <!-- About Me Box -->
+                <div class="box box-primary ">
+                    <div class="box-header with-border ">
+                        <h3 class="box-title ">من انا</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body ">
+                        <strong><i class="fa fa-book margin-r-5 "></i> التعليم</strong>
+
+                        <p class="text-muted ">
+                            المرحله الاعداديه
+                        </p>
+
+                        <hr>
+
+                        <strong><i class="fa fa-map-marker margin-r-5 "></i> العنوان</strong>
+
+                        <p class="text-muted ">القاهره</p>
+
+                        <hr>
+
+                        <strong><i class="fa fa-pencil margin-r-5 "></i> الانشطه</strong>
+
+                        <p>
+                            <span class="label label-danger ">سباحه</span>
+                            <span class="label label-success ">كره قدم</span>
+                            <span class="label label-info ">كارتيه</span>
+                        </p>
+
+                        <hr>
+
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+    </section>
+    <!-- /.content -->
+</div>
+
+

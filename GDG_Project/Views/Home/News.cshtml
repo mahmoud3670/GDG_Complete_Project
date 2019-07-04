@@ -1,0 +1,80 @@
+﻿@model IEnumerable<GDG_Project.Models.News>
+
+@{
+    ViewData["Title"] = "News";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="news ">
+    <div class="container">
+
+
+
+        @foreach (var Row in Model)
+
+        {
+            <div class="jumbotron" dir="rtl">
+                <h2>@Row.NewsTitle </h2>
+                <div class="row">
+                    <div class="col-xs-6 col-md-4"><img class="img-responsive" src="@Row.NewsImg" style="height: 30vh;float:left"></div>
+                    <div class="col-xs-12 col-sm-6 col-md-8">
+
+                        <p style="width:50ch;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
+                            @Html.Raw(Row.NewsContent)
+                        </p>
+                        <h6>تاريخ النشر : @Row.NewsDate.ToString("dd/MM/yyyy")</h6>
+                        <h6>عدد المشاهدات : @Row.NewsNviwer</h6>
+
+                    </div>
+
+                </div>
+                <center>
+                    <a class="btn btn-primary" asp-controller="Home" asp-action="NewsDetails" asp-route-id="@Row.NewsId" role="button">قرائه المزيد</a>
+                </center>
+            </div>
+
+        }
+
+            <center>
+               @{
+                   Double pageZise = ViewBag.pageZise;
+                   Double totalItem = ViewBag.totalItem;
+                   Double pageNumber = ViewBag.pageNumber;
+                   Double NemberOfPages = ViewBag.NemberOfPages;
+                   }
+                <nav class="table-responsive">
+                    <ul class="pagination justify-content-center d-flex flex-wrap">
+                        @if (pageNumber > 0)
+                        {
+                        <li class="page-item">
+                            <a class="page-link" asp-action="News">First</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" asp-action="News" asp-route-pageNumber="@(pageNumber - 1)">Previous</a>
+                        </li>
+                        }
+
+                        @for (int i = 0; i < NemberOfPages; i++)
+                        {
+                            <li class="page-item @(i == pageNumber ? "active" : "")">
+                                <a class="page-link"asp-action="News" asp-route-pageNumber="@(i)">@(i+1)</a>
+                            </li>
+
+                        }
+
+
+                        @if (pageNumber < NemberOfPages-1)
+                        {
+                        <li class="page-item">
+                            <a class="page-link" asp-action="News" asp-route-pageNumber="@(pageNumber + 1)">Next</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" asp-action="News" asp-route-pageNumber="@(NemberOfPages - 1)">Last</a>
+                        </li>
+                        }
+                    </ul>
+                </nav>
+            </center>
+    </div>
+
+</div>

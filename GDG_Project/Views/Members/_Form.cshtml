@@ -1,0 +1,73 @@
+﻿@model GDG_Project.Models.Payment
+@if (ViewBag.mes != null)
+{
+<div class="alert alert-danger fade in">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Warning!</strong> @ViewBag.mes.
+</div>
+}
+<div class="box-body">
+    <div class="form-group">
+        <label asp-for="MemberInfo" class="control-label">اسم العضو</label>
+        <select asp-for="MemberInfo" class="form-control" asp-items="ViewBag.MemberInfo" required></select>
+        <span asp-validation-for="MemberInfo" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SchoolId" class="control-label">اسم المدرسه</label>
+        <select asp-for="SchoolId" class="form-select2" style="width: 100%;" asp-items="ViewBag.SchoolId"></select>
+        <span asp-validation-for="SchoolId" class="text-danger"></span>
+    </div>
+
+    <!-- /.form-group -->
+
+    <div class="form-group">
+        <label asp-for="TrainerCode" class="control-label">اسم المدرب</label>
+        <select asp-for="TrainerCode" class="form-control select2" style="width: 100%;" asp-items="ViewBag.TrainerCode"></select>
+        <span asp-validation-for="TrainerCode" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PayDate" class="control-label">تاريخ الدفع </label>
+        <input asp-for="PayDate" class="form-control" type="date" required />
+        <span asp-validation-for="PayDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PayType" class="control-label">طريقه الدفع</label>
+        <select asp-for="PayType" class="form-control select2" style="width: 100%;">
+            <option selected="selected">اختر طريقه الدفع </option>
+            <option value="@Model.Monthly">شهر</option>
+            <option value="@Model.quarter">ربع سنوي </option>
+            <option value="@Model.Half">نصف سنوي</option>
+            <option value="@Model.PerYear">سنوي</option>
+        </select>
+        <span asp-validation-for="PayType" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PayAmountPaid" class="control-label"> المبلغ المدفوع</label>
+        <input type="number" asp-for="PayAmountPaid" class="form-control" required />
+        <span asp-validation-for="PayAmountPaid" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PayDiscount" class="control-label"> نسبه الخصم  </label>
+        <input asp-for="PayDiscount" class="form-control" />
+        <span asp-validation-for="PayDiscount" class="text-danger"></span>
+    </div>
+
+
+</div>
+
+<div class="box-footer">
+
+    <button type="submit" class="btn btn-primary">حفظ</button>
+</div>
+
+
+
+
+
+
+
+

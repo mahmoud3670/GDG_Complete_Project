@@ -1,0 +1,74 @@
+﻿@model IEnumerable<GDG_Project.Models.News>
+
+@{
+    ViewData["Title"] = "الاخبار";
+    Layout = "~/Views/Shared/_BackeLayout.cshtml";
+    
+}
+
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">الاخبار</h3>
+                        <a asp-action="Create"><button type="button" class="btn btn-primary" style="float:left">اضافه مقال </button></a>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>المسلسل </th>
+                                    <th>العنوان</th>
+                                    <th>عدد المشاهدات  </th>
+                                    <th>التاريخ</th>
+                                    <th>الاختيارات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NewsId)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NewsTitle)
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NewsNviwer)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NewsDate)
+                                        </td>
+
+                                        <td>
+                                            <a asp-action="Edit" asp-route-id="@item.NewsId"><i class="fas fa-pencil-alt"></i></a> &emsp;
+                                            <a asp-action="Details" asp-route-id="@item.NewsId"><i class="far fa-eye"></i></a>&emsp;
+                                            <a asp-action="Delete" asp-route-id="@item.NewsId"><i class="fas fa-trash-alt "></i></a>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+
+
+

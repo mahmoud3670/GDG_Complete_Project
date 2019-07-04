@@ -1,0 +1,252 @@
+﻿@inject GDGContext _GDGContext;
+@inject GDG_Project.Common.ISessionTracing _Tracing;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>@ViewBag.Title</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.4 -->
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/lib/fontawesome-free-5.3.1-web/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="~/lib/ionicons-2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/lib/dist/css/AdminLTE.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/lib/datatables/dataTables.bootstrap.css">
+    <link rel="stylesheet" href="~/lib/dist/css/skins/skin-blue.min.css">
+    <link rel="stylesheet" href="~/lib/dist/fonts/fonts-fa.css">
+    <link rel="stylesheet" href="~/lib/dist/css/bootstrap-rtl.min.css">
+    <link rel="stylesheet" href="~/lib/dist/css/rtl.css">
+    <link rel="stylesheet" href="~/css/site.css" />
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Select2 -->
+    <link rel="stylesheet" href="~/lib/select2/select2.min.css">
+</head>
+<body class="skin-blue sidebar-mini">
+    <div class="wrapper">
+        <header class="main-header">
+            <!-- Logo -->
+            <a href="#" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b>M</b>A</span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>Admin</b>@_Tracing.Authorization().EmpUserName</span>
+            </a>
+            <!--+++++++++++++++++++++++++++++++++Start Navbar++++++++++++++++++++++++++++-->
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar  navbar-static-top " role="navigation">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <!------------- Messages: style can be found in dropdown.less الرسايل---------->
+                        <li class="dropdown messages-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fas fa-envelope-open-text"></i>
+
+                                @{//start feed back
+                                    var FeadBake = _GDGContext.ContactUs.OrderByDescending(x => x.MessageDate).Take(5).ToList();
+                                    ViewBag.feadBake = FeadBake;
+                                    ViewBag.count = FeadBake.Count(x => x.Opend == false);}
+                                <span class="label label-success">@(ViewBag.count > 0 ? ViewBag.count : "")</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">@(ViewBag.count > 0 ? "لديك عدد " + @ViewBag.count + " رسائل غير مقروءه" : "")</li>
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+                                        @foreach (var feadBake in ViewBag.FeadBake)
+                                        {
+
+
+                                            <li @(feadBake.Opend == false ? "style=background-color:#3c8dbc" : "")>
+                                                <!-- start message -->
+                                                <a asp-controller="News" asp-action="ReadContactUs" asp-route-id="@feadBake.MessageId">
+
+                                                    <div class="pull-right">
+                                                        <img src="~/lib/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                                    </div>
+                                                    <h4>
+                                                        @feadBake.AnonymsName
+                                                        <small><i class="fas fa-clock"></i> @(DateTime.Now.Day - feadBake.MessageDate.Day) يوم</small>
+                                                    </h4>
+                                                    <p> @feadBake.AnonymsMessage</p>
+                                                </a>
+                                            </li>
+                                        }
+                                        <!-- end message -->
+                                    </ul>
+                                </li>
+                                <li class="footer"><a asp-controller="News" asp-action="ContactUs">مشاهده كل الرسائل</a></li>
+                            </ul>
+                        </li>
+
+                        <!-------------End Messages: style can be found in dropdown.less الرسايل---------->
+                        <!----------- Start  User Account: style can be found in dropdown.less----- -->
+                        <li class="dropdown user user-menu">
+                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="@_Tracing.Authorization().EmpInfoNavigation.PImg" class="user-image" alt="User Image">
+                                <span class="hidden-xs">@_Tracing.Authorization().EmpUserName  </span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- User image -->
+                                <li class="user-header">
+                                    <img src="@_Tracing.Authorization().EmpInfoNavigation.PImg" class="img-circle" alt="User Image">
+                                    <p>
+                                        @_Tracing.Authorization().EmpInfoNavigation.PName
+                                        <small>@_Tracing.Authorization().EmpDepartmentNavigation.DepName </small>
+                                    </p>
+                                </li>
+                                <li class="user-footer">
+                                    <div class="pull-left">
+                                        <a asp-controller="Home" asp-action="Logout" class="btn btn-default btn-flat">تسجيل الخروج</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- Sidebar user panel -->
+                <div class="user-panel">
+                    <div class="pull-right image">
+                        <img src="@_Tracing.Authorization().EmpInfoNavigation.PImg" class="img-circle" alt="User Image">
+                    </div>
+                    <div class="pull-left info">
+                        <a asp-controller="Employee" asp-action="Details" asp-route-id="@_Tracing.Authorization().EmpId" style="font-size: large">
+                           @_Tracing.Authorization().EmpUserName
+                        </a>
+                        <p style="margin-top: 10px"><i class="fas fa-circle text-success"></i>متوفر</p>
+                    </div>
+                </div>
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu">
+                    @if (_Tracing.Authorization().EmpPostion == _Tracing.Authorization().dataEntry || _Tracing.Authorization().EmpPostion == _Tracing.Authorization().admin)
+                    {
+                        <li>
+                            <a asp-controller="News" asp-action="Index"><i class="far fa-newspaper"></i> <span> &nbsp &nbsp الاخبار </span> <i class="fa fa-angle-left pull-left"></i></a>
+                        </li>
+                    }
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fas fa-swimmer fa-1x"></i> <span> الانشطه  </span> <i class="fa fa-angle-left pull-left"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            @if (_Tracing.Authorization().EmpPostion == _Tracing.Authorization().admin)
+                            {
+                                <!--+++++++++++++++++++++++ Super Admin Ony +++++++++++++++++++++++++++-->
+                                <li><a asp-controller="Activty" asp-action="Index"><i class="fas fa-universal-access fa-1x"></i> &nbsp &nbsp  الانشطه  </a></li>
+                                <li><a asp-controller="School" asp-action="Index"><i class="fas fa-vihara fa-1x"></i> &nbsp &nbsp المدارس </a></li>
+                            }
+                            <!--+++++++++++++++++++++++ Super Admin Ony +++++++++++++++++++++++++++-->
+                            @if (_Tracing.Authorization().EmpPostion == _Tracing.Authorization().HR || _Tracing.Authorization().EmpPostion == _Tracing.Authorization().admin || _Tracing.Authorization().EmpPostion == _Tracing.Authorization().dataEntry)
+                            {
+                                <li>
+                                    <a asp-controller="PersonInfo" asp-action="Index"><i class="far fa-newspaper"></i> <span> &nbsp &nbsp الاعضاء/المدربين </span></a>
+                                </li>
+
+                                <li>
+                                    <a asp-controller="Trainers" asp-action="Index"><i class="fas fa-user-ninja fa-1x"></i> &nbsp &nbsp انشطه المدربين   </a>
+                                </li>
+                                <li>
+                            <a asp-controller="Members" asp-action="Index"><i class="fas fa-child fa-1x"></i> &nbsp &nbsp اعضاء المدارس </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Tournaments" asp-action="Index"><i class="fas fa-medal fa-1x"></i> &nbsp &nbsp البطولات </a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                    @if (_Tracing.Authorization().EmpPostion == _Tracing.Authorization().HR || _Tracing.Authorization().EmpPostion == _Tracing.Authorization().admin|| _Tracing.Authorization().EmpPostion == _Tracing.Authorization().accounting)
+                    {
+                        <!--+++++++++++++++++++++++ Super Admin Ony +++++++++++++++++++++++++++-->
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fas fa-users "></i> <span> &nbsp &nbsp  شؤن العاملين  </span> <i class="fa fa-angle-left pull-left"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a asp-controller="Department" asp-action="Index"><i class="fab fa-codepen"></i> &nbsp &nbsp الاقسام   </a></li>
+                                <li><a asp-controller="Employee" asp-action="Index"><i class="fas fa-user "></i> &nbsp &nbsp العاملين   </a></li>
+                                <li><a asp-controller="Employee" asp-action="EmpSalaryIndex"><i class="fas fa-piggy-bank fa-1x"></i> &nbsp &nbsp مرتبات الموظفين </a></li>
+                                <li><a href="../TSalary/tsalary.html"><i class="fas fa-search-dollar fa-1x"></i> &nbsp &nbsp مرتبات المدربين   </a></li>
+                               
+
+
+                            </ul>
+                        </li>
+                        <!--+++++++++++++++++++++++ Super Admin Ony +++++++++++++++++++++++++++-->
+                    }
+                    
+                </ul>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+
+        @RenderBody()
+
+        <footer class="main-footer">
+            <!-- To the right -->
+            <div class="pull-right hidden-xs">
+                <i class='ion-social-tux'> Mahmoud Abd-Elhamed Devolpment</i>>
+            </div>
+            <!-- Default to the left -->
+            <strong>Copyright &copy; @DateTime.Now.Year <a href="#">نادي التنميه الشبابيه بشبرا الخيمه </a>.</strong> جميع الحقوق .
+        </footer>
+    </div>
+    <!-- ./wrapper -->
+    <!-- REQUIRED JS SCRIPTS -->
+    <!-- jQuery 2.1.4 -->
+    <script src="~/lib/jQuery/jQuery-2.1.4.min.js"></script>
+    <!-- Bootstrap 3.3.4 -->
+    <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/lib/dist/js/app.min.js"></script>
+    <!-- DataTables -->
+    <script src="~/lib/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatables/dataTables.bootstrap.min.js"></script>
+
+    <script src="~/lib/select2/select2.full.min.js"></script>
+    <!-- page script -->
+    <script>
+        $(function () {
+            $('#example1').DataTable();
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false
+            });
+        });
+
+        $(function () {
+            //Initialize Select2 Elements
+            $(".select2").select2();
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $(".close").click(function () {
+                $("#myAlert").alert("close");
+            });
+        });
+    </script>
+
+</body>
+</html>

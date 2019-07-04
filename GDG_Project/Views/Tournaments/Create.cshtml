@@ -1,0 +1,108 @@
+﻿@model GDG_Project.Models.Tournaments
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_BackeLayout.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title"> اضافه لاعب</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <form asp-action="Create" method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="box-body">
+
+                                <div class="form-group">
+                                    <label asp-for="MemberInfo" class="control-label">اسم اللاعب</label>
+                                    <select asp-for="MemberInfo" class="form-control" asp-items="ViewBag.MemberInfo" required></select>
+                                    <span asp-validation-for="MemberInfo" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="ActId" class="control-label">اسم النشاط</label>
+                                    <select asp-for="ActId" class="form-control" asp-items="ViewBag.ActId" required></select>
+                                    <span asp-validation-for="ActId" class="text-danger"></span>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label asp-for="TourName" class="control-label">اسم البطوله</label>
+                                    <input type="text" asp-for="TourName" class="form-control" required />
+                                    <span asp-validation-for="TourName" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="TourDate" class="control-label">تاريخ البطوله</label>
+                                    <input asp-for="TourDate" class="form-control" type="date" />
+                                    <span asp-validation-for="TourDate" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="MemberLevel" class="control-label"> مركز اللاعب </label>
+                                    <input type="text" asp-for="MemberLevel" class="form-control" required />
+                                    <span asp-validation-for="MemberLevel" class="text-danger"></span>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label asp-for="MemberImg" class="control-label">صوره اللاعب</label>
+                                    <input type="file" asp-for="MemberImg" class="form-control" />
+                                    <span asp-validation-for="MemberImg" class="text-danger"></span>
+                                </div>
+
+
+
+                                <div class="box box-info">
+                                    <div class="box-header">
+                                        <h3 class="box-title"> <label asp-for="TourDescription" class="control-label">وصف البطوله</label></h3>
+                                        <!-- tools box -->
+                                        <div class="pull-right box-tools">
+                                            <button class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+
+                                        </div>
+                                        <!-- /. tools -->
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body pad">
+                                        <form>
+                                            <textarea asp-for="TourDescription" id="editor1" name="editor1" rows="10" cols="80">
+                                                                            
+                                                    </textarea>
+                                        </form>
+                                    </div>
+                                    <span asp-validation-for="TourDescription" class="text-danger"></span>
+                                </div>
+                                <!-- /.box -->
+
+
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="form-group">
+
+                                <input type="submit" value="حفظ" class="btn btn-primary" />
+
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+<script src="https://cdn.ckeditor.com/4.11.1/standard/ckeditor.js"></script>
+<script>
+            CKEDITOR.replace('editor1');
+            document.write(footerWriter());
+</script>
+

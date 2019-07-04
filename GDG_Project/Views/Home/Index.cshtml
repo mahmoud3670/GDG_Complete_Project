@@ -1,0 +1,148 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!----------------------------- start navebar ---------------------------->
+<!--------------------------  end nave bar----------------------------->
+<!----------------------------- start header---------------------------->
+<div class="header" id="header">
+    <div class="container">
+        <div class="row">
+            <section class="wow slideInDown" data-wow-duration="1s" data-wow-delay=".5s">
+                <div class="col-xs-12 col-sm-6 col-md-8">
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            @{
+                                    int counter = 0;
+                                    foreach (var item in Model)
+                                    {
+                                  <li data-target="#carousel-example-generic" data-slide-to="0" class="@(counter==0?"active":"")"></li>
+                                    counter++;
+                                    }
+                             }
+                        </ol>
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner" role="listbox">
+                         
+                            
+                               @{
+                                       int index = 0;
+                                       foreach (var itemImg in Model)
+                                       {
+                            <div class="item @(index==0?"active":"")">
+                                <img src="@itemImg.ActImg" alt="...">
+                                <div class="carousel-caption">
+                                    <a asp-action="ActView" asp-route-id="@itemImg.ActId" >@itemImg.ActName</a>
+                                </div>
+                            </div>
+                                    index++;
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6  col-md-4" id="intro">
+                    <h1>Welcome to<br> master sports</h1>
+                    <p>
+                        Every successful sporting career requires talent, willpower plus professional, efficient
+                        career planning. The master sports team offers services going far beyond those of a mere
+                        agency. As well as acting as agents, we also provide
+                        advice, look after players and coordinate their schedules, and, on request, we even take
+                        care of seemingly unrelated matters such as filing and managing important documents… Master
+                        sports has specially dedicated itself to working
+                        with young, talented players. We supply everything required for ensuring our young clients
+                        receive an effective career planning service specially tailored to their own particular
+                        needs.
+                    </p>
+                </div>
+
+            </section>
+
+        </div>
+        <!-- <span class="arrow1">
+            <i class="fa fa-chevron-down" aria-hidden="true"></i>
+        </span> -->
+    </div>
+</div>
+
+<!--------------------------  end header----------------------------->
+<!----------------------------- start news---------------------------->
+<div class="news ">
+    <div class="container">
+
+
+
+        @foreach (var Row in ViewBag.NewsViews)
+
+        {
+            <div class="jumbotron" dir="rtl">
+                <h2>@Row.NewsTitle </h2>
+                <div class="row">
+                    <div class="col-xs-6 col-md-4"><img class="img-responsive" src="@Row.NewsImg" style="height: 30vh;float:left"></div>
+                    <div class="col-xs-12 col-sm-6 col-md-8">
+
+                        <p style="width:50ch;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
+                            @Html.Raw(Row.NewsContent)
+                        </p>
+                        <h6>تاريخ النشر : @Row.NewsDate.ToString("dd/MM/yyyy")</h6>
+
+                    </div>
+
+                </div>
+                <center>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@Row.NewsTitle" data-content="@Row.NewsContent" data-animation='<img class="img-responsive " src="@Row.NewsImg">'>
+                        قرائه المزيد
+                    </button>
+                </center>
+            </div>
+
+        }
+
+
+    </div>
+
+</div>
+
+<!----------------------------- end news---------------------------->
+<!--############################ start footer############################-->
+<!--############################ End footer############################-->
+<!--#############################start news##########################-->
+<!-- Button trigger modal -->
+<!-- ############################# news################################################### -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">.</h4>
+            </div>
+            <div class="modal-body">
+                <div class="">
+                    <div class="row">
+                        <div class="col-xs-12"><label></label></div>
+                        <div class="col-xs-12 text-center ">
+
+                            <h2> </h2>
+
+                            <p>
+
+                            </p>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--#############################End News##############################-->

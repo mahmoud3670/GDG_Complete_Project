@@ -1,0 +1,18 @@
+﻿@model GDG_Project.Models.Department
+
+
+<div class="form-group">
+    <label asp-for="DepName" class="control-label">اسم القسم</label>
+    <input asp-for="DepName" class="form-control"placeholder="اسم القسم  " required />
+    <span asp-validation-for="DepName" class="text-danger"></span>
+</div>
+@if (ViewBag.ex != null)
+{
+    <h1>@ViewBag.ex</h1>
+}
+
+<div class="form-group">
+
+    <input type="submit" @Html.Raw(ViewData["Title"].ToString() == "Edit" ? "value=' تعديل '" : "value='اضافه'") class="btn btn-primary" />
+
+</div>

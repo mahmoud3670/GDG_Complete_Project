@@ -1,0 +1,72 @@
+﻿@model IEnumerable<GDG_Project.Models.School>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_BackeLayout.cshtml";
+}
+
+
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">المدارس </h3>
+                        <a asp-action="Create"><button type="button" class="btn btn-primary" style="float:left">اضافه مدرسه </button></a>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>المسلسل </th>
+                                    <th>الاسم</th>
+                                    <th>الحاله </th>
+                                    <th>النشاط</th>
+                                    <th>عدد المشتركين</th>
+                                    <th>تاريخ البدايه </th>
+                                    <th>تاريخ النهايه </th>
+                                    <th>الاختيارات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+
+                                @foreach (var item in Model)
+                                {
+                                <tr>
+                                    <td>@item.SchoolId</td>
+                                    <td>@item.SchoolName</td>
+                                    <td>@(item.SchoolActive==item.Active?"فعال":"متوقف") </td>
+                                    <td>@item.SchoolActNavigation.ActName </td>
+                                    <td>@item.Payment.Where(x=>x.PayDueDate>=DateTime.Now).Count() </td>
+                                    <td>@item.SchoolStartDay.ToString("dd/MM/yyyy")</td>
+                                    <td>@item.SchoolEndDay.ToString("dd/MM/yyyy")</td>
+                                    <td>
+                                        &nbsp &nbsp
+                                        <a asp-action="Details" asp-route-id="@item.SchoolId"><i class="far fa-eye"></i></a>
+                                        &nbsp &nbsp
+                                        <a asp-action="Edit" asp-route-id="@item.SchoolId"><i class="fas fa-pencil-alt"></i></a>
+                                    </td>
+                                </tr>
+                                }
+                                
+
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>

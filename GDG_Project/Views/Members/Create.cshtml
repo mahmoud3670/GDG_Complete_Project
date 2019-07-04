@@ -1,0 +1,40 @@
+﻿@model GDG_Project.Models.Payment
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_BackeLayout.cshtml";
+}
+
+
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title"> اشتراك جديد </h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <form asp-action="Create" method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <partial name="_Form" model="Model" />
+
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+        <!-- /.col -->
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+
+
+

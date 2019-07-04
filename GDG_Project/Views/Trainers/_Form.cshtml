@@ -1,0 +1,71 @@
+﻿@model GDG_Project.Models.Trainer
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+@if (ViewData["Title"].ToString() == "Edit")
+{
+    <input type="hidden" asp-for="TrainerCode" />
+}
+    <div class="box-body">
+        
+        <div class="form-group">
+            <label asp-for="TrainerInfo" class="control-label">اسم المدرب</label>
+            @if (ViewData["Title"].ToString() == "Edit")
+            {
+                <select asp-for="TrainerInfo" class="form-control select2" asp-items="ViewBag.TrainerInfo" required disabled></select>
+            }
+            else
+            {
+                <select asp-for="TrainerInfo" class="form-control select2" asp-items="ViewBag.TrainerInfo" required></select> 
+            }
+
+            <span asp-validation-for="TrainerInfo" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div class="form-group">
+                <label asp-for="TrainerAct" class="control-label">النشاط</label>
+                @if (ViewData["Title"].ToString() == "Edit")
+                {
+                    <select asp-for="TrainerAct" class="form-control select2" asp-items="ViewBag.TrainerAct" required disabled></select>
+                }
+                else
+                {
+                    <select asp-for="TrainerAct" class="form-control select2" asp-items="ViewBag.TrainerAct" required ></select>
+                }
+
+                <span asp-validation-for="TrainerAct" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="TrainerStartDay" class="control-label">تاريخ بدايه التدريب</label>
+            @if (ViewData["Title"].ToString() == "Edit")
+            {
+                <input type="date" asp-for="TrainerStartDay" class="form-control" required disabled />
+            }
+            else
+            {
+                <input type="date" asp-for="TrainerStartDay" class="form-control" required  />
+            }
+
+            <span asp-validation-for="TrainerStartDay" class="text-danger"></span>
+        </div>
+      
+
+
+        <div class="form-group">
+            <label asp-for="TrainerActive"> الحاله   </label>
+            <select asp-for="TrainerActive" class="form-control select2" style="width: 100%;" required>
+                <option selected="selected">اختر الحاله  </option>
+                <option value=" @Model.Active"> فعال </option>
+                <option value="@Model.DisActive">   غير فعال   </option>
+            </select>
+            <span asp-validation-for="TrainerActive" class="text-danger"></span>
+        </div>
+
+        <div class="box-footer">
+            @if (ViewBag.mes != null)
+            {
+                <p>@ViewBag.mes</p>
+            }
+            <button type="submit" class="btn btn-primary">@(ViewData["Title"].ToString() == "Edit"?"تعديل": "حفظ")</button>
+        </div>
+    </div>

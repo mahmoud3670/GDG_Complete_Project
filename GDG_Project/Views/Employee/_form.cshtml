@@ -1,0 +1,131 @@
+﻿@model GDG_Project.Models.EmpInfo
+
+<div class="box-body">
+
+
+
+
+    <div class="form-group">
+        <label asp-for="PName">الاسم </label>
+        <input type="text" class="form-control" asp-for="PName" placeholder="الاسم" required>
+        <span asp-validation-for="PName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PNationalId"> الرقم القومي </label>
+        <input type="text" class="form-control" asp-for="PNationalId" placeholder="1263255562225 " required>
+        <span asp-validation-for="PNationalId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PPhone"> الهاتف </label>
+        <input  class="form-control" asp-for="PPhone" placeholder="1263255562225 " required>
+        <span asp-validation-for="PPhone" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PAdress">  العنوان </label>
+        <input type="text" class="form-control" asp-for="PAdress" placeholder="banha " required>
+        <span asp-validation-for="PAdress" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PEmail"> الايميل </label>
+        <input type="email" class="form-control" asp-for="PEmail" placeholder="e@m.com ">
+        <span asp-validation-for="PEmail" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PBirthDate"> تاريخ الميلاد</label>
+        <input type="date" class="form-control" asp-for="PBirthDate" placeholder="1/1/2000 " required>
+        <span asp-validation-for="PBirthDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PStartDate">  تاريخ الاشتراك </label>
+        <input type="date" class="form-control" asp-for="PStartDate" placeholder="1/1/2017 " required>
+        <span asp-validation-for="PStartDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PGender">النوع</label>
+        <select asp-for="PGender" class="form-control">
+            <option disabled selected>النوع</option>
+            <option value="@Model.male">ذكر</option>
+            <option value="@Model.famel">انثي</option>
+        </select>
+        <span asp-validation-for="PGender" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PImg" for="NewsImage">صوره العضو</label>
+        @if (ViewData["Title"].ToString() == "updateEmp")
+        {
+            <img src="@Model.PImg" class="img-rounded" alt="@Model.PName" width="100" height="100">
+        }
+
+        <input type="file" asp-for="PImg">
+        <span asp-validation-for="PImg" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>القسم</label>
+        <label asp-for="EmpDepartment">القسم </label>
+        <select asp-for="EmpDepartment" class="form-control" asp-items="ViewBag.selectListItem">
+            <option disabled selected>اختر القسم</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="EmpPostion">الدرجه الوظيفيه</label>
+        <select asp-for="EmpPostion" class="form-control">
+            <option disabled>اختر الدرجه </option>
+            <option value="@Model.admin">مديرعام</option>
+            <option value="@Model.accounting">ماليه</option>
+            <option value="@Model.worker">موظف</option>
+            <option value="@Model.HR">شئون عاملين</option>
+            <option value="@Model.dataEntry">مدخل بيانات</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <div class="form-group">
+            <label asp-for="EmpSalary" class="control-label">الراتب</label>
+            <input asp-for="EmpSalary" class="form-control" placeholder="1000 " required />
+            <span asp-validation-for="EmpSalary" class="text-danger"></span>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EmpActive">الحاله</label>
+        <select class="form-control" asp-for="EmpActive">
+            <option disabled selected>الحاله </option>
+            <option value="@Model.NotActive">متوقف</option>
+            <option value="@Model.active">فعال</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="EmpUserName" class="+-label">UserName</label>
+        <input asp-for="EmpUserName" class="form-control" />
+        <span asp-validation-for="EmpUserName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="EmpPassword" class="control-label">Password</label>
+        <input asp-for="EmpPassword" class="form-control" />
+        <span asp-validation-for="EmpPassword" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="conPassword" class="control-label">confirm password</label>
+        <input asp-for="conPassword" class="form-control" />
+        <span asp-validation-for="conPassword" class="text-danger"></span>
+    </div>
+
+
+    <!-- /.box -->
+
+
+</div>
+<div class="form-group">
+
+    <input type="submit" @Html.Raw(ViewData["Title"].ToString() == "updateEmp" ? "value=' تعديل '" : "value='اضافه'") class="btn btn-primary" />
+   
+    @if (ViewBag.mes != null)
+    {
+    
+        <p>@ViewBag.mes</p>
+    }
+
+</div>
+
+
