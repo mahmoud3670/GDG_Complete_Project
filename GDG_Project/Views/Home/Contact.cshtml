@@ -2,6 +2,13 @@
 @{
     ViewData["Title"] = "Contact";
 }
+@if (ViewBag.mes != null)
+{
+    <div class="alert alert-danger fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Warning!</strong> @ViewBag.mes.
+    </div>
+}
 
 <div class="contact section-padding">
     <div class="container" dir="rtl">
@@ -24,7 +31,7 @@
                     <div class="form-group">
                         <span asp-validation-for="AnonymsEmail" class="text-danger"></span>
                         <div class="col-lg-10">
-                            <input asp-for="AnonymsEmail" type="email" class="form-control" id="email"  placeholder="example-domain.com">
+                            <input asp-for="AnonymsEmail" type="email" class="form-control" id="email" placeholder="example-domain.com">
                         </div>
                         <label for="email" class="col-lg-2 control-label">البريد الالكتروني </label>
 
@@ -32,14 +39,14 @@
                     <div class="form-group">
                         <span asp-validation-for="AnonymsPhone" class="text-danger"></span>
                         <div class="col-lg-10">
-                            <input class="form-control" id="phone" asp-for="AnonymsPhone"  type="tel" placeholder="*******01" required>
+                            <input class="form-control" id="phone" asp-for="AnonymsPhone" type="tel" placeholder="*******01" required>
                         </div>
-                        <label asp-for="AnonymsPhone"  class="col-lg-2 control-label">رقم الهاتف </label>
+                        <label asp-for="AnonymsPhone" class="col-lg-2 control-label">رقم الهاتف </label>
                     </div>
                     <div class="form-group">
                         <span asp-validation-for="AnonymsName" class="text-danger"></span>
                         <div class="col-lg-10">
-                            <textarea asp-for="AnonymsMessage"  class="form-control" rows="3" id="textArea" placeholder="Enter your massage" required></textarea>
+                            <textarea asp-for="AnonymsMessage" class="form-control" rows="3" id="textArea" placeholder="Enter your massage" required></textarea>
                         </div>
                         <label asp-for="AnonymsMessage" class="col-lg-2 control-label">Message</label>
                     </div>

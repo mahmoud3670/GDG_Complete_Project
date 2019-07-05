@@ -1,5 +1,11 @@
 ﻿@model GDG_Project.Models.PersonInfo
-
+@if (ViewBag.mes != null)
+{
+    <div class="alert alert-danger fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Warning!</strong> @ViewBag.mes.
+    </div>
+}
 <div class="box-body">
     <div class="form-group">
         <label asp-for="PName">الاسم </label>
@@ -53,7 +59,7 @@
                 <option disabled selected>المستوي</option>
                 <option value="@Model.TrainerLabel"> مدرب </option>
                 <option value="@Model.MembersLabel">مشترك</option>
-               
+
             </select>
             <span asp-validation-for="PType" class="text-danger"></span>
         </div>
@@ -62,7 +68,7 @@
     {
         <div class="form-group">
             <label asp-for="PType">المستوي</label>
-            <input type="text" asp-for="PType" hidden/>
+            <input type="text" asp-for="PType" hidden />
             <span asp-validation-for="PType" class="text-danger"></span>
         </div>
     }
@@ -73,10 +79,7 @@
     </div>
 
 </div>
-@if (ViewBag.ex != null)
-{
-    <h1>@ViewBag.ex</h1>
-}
+
 
 <div class="form-group">
 

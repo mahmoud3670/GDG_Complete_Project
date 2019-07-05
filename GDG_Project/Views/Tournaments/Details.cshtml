@@ -5,57 +5,52 @@
     Layout = "~/Views/Shared/_BackeLayout.cshtml";
 }
 
-<h1>Details</h1>
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
 
-<div>
-    <h4>Tournaments</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TourName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TourName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TourDescription)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TourDescription)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TourDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TourDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MemberImg)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MemberImg)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MemberLevel)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MemberLevel)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Act)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Act.ActDescription)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MemberInfoNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MemberInfoNavigation.PAdress)
-        </dd>
-    </dl>
+                <!-- /.box-header -->
+                <!-- Profile Image -->
+                <div class="box box-primary ">
+                    <div class="box-body ">
+                        <center> <img class=" mx-auto d-block img-responsive img-circle" src="@Model.MemberImg" alt="User profile picture"></center>
+                        <h3 class="profile-username text-center">@Model.MemberInfoNavigation.PName</h3>
+                        <p class="text-muted text-center">بطوله @Model.TourName </p>
+                        <ul class="list-group list-group-unbordered">
+                            <li class="list-group-item">
+                                <b>النشاط  </b> <b class="pull-left">@Model.Act.ActName</b>
+                            </li>
+                            <li class="list-group-item">
+                                <b>المركز  </b> <b class="pull-left">@Model.MemberLevel</b>
+                            </li>
+                            <li class="list-group-item">
+                                <b>تاريخ البطوله</b> <b class="pull-left">@Model.TourDate.ToString("dd/MM/yyyy")</b>
+                            </li>
+                            <li class="list-group-item">
+                                <h3> الوصف</h3>
+                                <p>
+        @Model.TourDescription
+                                </p>
+                            </li>
+
+
+                        </ul>
+
+                    </div>
+                    <!-- /.box-body -->
+                    <hr />
+
+                </div>
+                <!-- /.box -->
+                <!-- /.box-body -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.TourId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+   

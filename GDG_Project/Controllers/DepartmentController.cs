@@ -67,7 +67,8 @@ namespace GDG_Project.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.ex = e;
+                ViewBag.mes = "sorry cant add Now ";
+                _sessionTracing.LogEventError(e.HelpLink, _sessionTracing.Authorization().EmpId, DateTime.Now + e.Message);
                 return View(department);
             }
         }

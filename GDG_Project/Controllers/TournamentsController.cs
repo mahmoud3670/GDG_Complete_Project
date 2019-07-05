@@ -8,17 +8,18 @@ using Microsoft.EntityFrameworkCore;
 using GDG_Project.Models;
 using GDG_Project.Common;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Hosting;
 
 namespace GDG_Project.Controllers
 {
-    public class TournamentsController : Controller
+    public class TournamentsController :GlobalController 
     {
-        private GDGContext _gDGContext;
+       
         private ISessionTracing _sessionTracing;
 
-        public TournamentsController(GDGContext gDGContext, ISessionTracing sessionTracing)
+        public TournamentsController(GDGContext gDGContext, ISessionTracing sessionTracing,IHostingEnvironment env):base(gDGContext,env)
         {
-            _gDGContext = gDGContext;
+          
             _sessionTracing = sessionTracing;
 
         }
@@ -34,8 +35,8 @@ namespace GDG_Project.Controllers
         // GET: Tournaments
         public ActionResult Index()
         {
-            var Model = (from t in _gDGContext.Tournaments
-                              join p in _gDGContext.PersonInfo
+            var Model = (from t in _GDGContext.Tournaments
+                              join p in _GDGContext.PersonInfo
                               on t.MemberInfo equals p.PId
                               select p).ToList();
 
@@ -47,40 +48,41 @@ namespace GDG_Project.Controllers
             {
                 return Redirect(nameof(Index));
             }
-            var Model = _gDGContext.Tournaments.AsNoTracking().Where(x => x.MemberInfo == id).Include(x=>x.MemberInfoNavigation).ToList();
+            var Model = _GDGContext.PersonInfo.AsNoTracking().Where(x => x.PId == id).Include(x=>x.Tournaments).FirstOrDefault();
             if (Model == null)
             {
                 return Redirect(nameof(Index));
             }
-            ViewBag.personInfo = _gDGContext.PersonInfo.AsNoTracking().Where(x => x.PId == id).FirstOrDefault();
+            ViewBag.Tour = _GDGContext.Tournaments.AsNoTracking().Where(x => x.MemberInfo == id).ToList();
+           
             return View(Model);
         }
 
-        //// GET: Tournaments/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // GET: Tournaments/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return Redirect(nameof(Index));
+            }
 
-        //    var tournaments = await _context.Tournaments
-        //        .Include(t => t.Act)
-        //        .Include(t => t.MemberInfoNavigation)
-        //        .FirstOrDefaultAsync(m => m.TourId == id);
-        //    if (tournaments == null)
-        //    {
-        //        return NotFound();
-        //    }
+            var tournaments = _GDGContext.Tournaments
+                .Include(t => t.Act)
+                .Include(t => t.MemberInfoNavigation)
+                .FirstOrDefault();
+            if (tournaments == null)
+            {
+                return Redirect(nameof(Index));
+            }
 
-        //    return View(tournaments);
-        //}
+            return View(tournaments);
+        }
 
         // GET: Tournaments/Create
         public ActionResult Create()
         {
-            ViewData["ActId"] = new SelectList(_gDGContext.Activates, "ActId", "ActName");
-            ViewData["MemberInfo"] = new SelectList(_gDGContext.PersonInfo.Where(x=>x.PType!=x.EmployeesLabel), "PId", "PName");
+            ViewData["ActId"] = new SelectList(_GDGContext.Activates, "ActId", "ActName");
+            ViewData["MemberInfo"] = new SelectList(_GDGContext.PersonInfo.Where(x=>x.PType!=x.EmployeesLabel), "PId", "PName");
             return View();
         }
 
@@ -89,15 +91,44 @@ namespace GDG_Project.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create (Tournaments tournaments)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _gDGContext.Add(tournaments);
-                _gDGContext.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    var file = HttpContext.Request.Form.Files;
+                    if (file.Count > 0)
+                    {
+
+                        var imgName = saveImg(file, "Tour");
+                        //save data in db
+                        _GDGContext.Add(tournaments);
+                        tournaments.MemberImg = "/img/Tour/" + imgName;
+                        int x = 10-10; int y = 10 / x;
+                        _GDGContext.SaveChanges();
+                        return RedirectToAction(nameof(Index));
+
+
+                    }
+
+                    ViewData["ActId"] = new SelectList(_GDGContext.Activates, "ActId", "ActName", tournaments.ActId);
+                    ViewData["MemberInfo"] = new SelectList(_GDGContext.PersonInfo.Where(x => x.PType != x.EmployeesLabel), "PId", "PName", tournaments.MemberInfo);
+                    return View(tournaments);
+                }
+
+                ViewData["ActId"] = new SelectList(_GDGContext.Activates, "ActId", "ActName", tournaments.ActId);
+                ViewData["MemberInfo"] = new SelectList(_GDGContext.PersonInfo.Where(x => x.PType != x.EmployeesLabel), "PId", "PName", tournaments.MemberInfo);
+                return View(tournaments);
             }
-            ViewData["ActId"] = new SelectList(_gDGContext.Activates, "ActId", "ActName", tournaments.ActId);
-            ViewData["MemberInfo"] = new SelectList(_gDGContext.PersonInfo.Where(x => x.PType != x.EmployeesLabel), "PId", "PName", tournaments.MemberInfo);
-            return View(tournaments);
+            catch (Exception e)
+            {
+                ViewData["ActId"] = new SelectList(_GDGContext.Activates, "ActId", "ActName", tournaments.ActId);
+                ViewData["MemberInfo"] = new SelectList(_GDGContext.PersonInfo.Where(x => x.PType != x.EmployeesLabel), "PId", "PName", tournaments.MemberInfo);
+                ViewBag.mes = e.HelpLink;
+                _sessionTracing.LogEventError("/Tournaments/Create", _sessionTracing.Authorization().EmpId, DateTime.Now + e.Message);
+                return View(tournaments);
+
+            }
+           
         }
 
         //// GET: Tournaments/Edit/5

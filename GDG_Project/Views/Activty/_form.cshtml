@@ -1,4 +1,11 @@
 ﻿@model GDG_Project.Models.Activates
+@if (ViewBag.mes != null)
+{
+    <div class="alert alert-danger fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Warning!</strong> @ViewBag.mes.
+    </div>
+}
 @if (ViewData["Title"].ToString() == "Edit")
 {
     <input type="hidden" asp-for="ActId" />
@@ -18,7 +25,7 @@
     <div class="form-group">
         <label asp-for="ActActive" class="control-label">الحاله</label>
         <select class="form-control" asp-for="ActActive" required>
-            <option  disabled selected>الحاله</option>
+            <option disabled selected>الحاله</option>
             <option value="@Model.Active">فعال</option>
             <option value="@Model.NotActive">غير فعال</option>
         </select>
@@ -27,8 +34,8 @@
 
 
     <div class="form-group">
-        <label asp-for="ActImg" class="control-label" >صوره النشاط</label>
-        <input type="file" asp-for="ActImg"  class="form-control" >
+        <label asp-for="ActImg" class="control-label">صوره النشاط</label>
+        <input type="file" asp-for="ActImg" class="form-control">
         <span asp-validation-for="ActImg" class="text-danger"></span>
     </div>
     <div class="box box-info">
@@ -56,16 +63,13 @@
 </div>
 <!-- /.box-body -->
 
-@if (ViewBag.ex != null)
-{
-    <h1>@ViewBag.ex</h1>
-}
+
 
 <div class="form-group">
 
-        <input type="submit"@Html.Raw( ViewData["Title"].ToString() == "Edit" ?"value=' تعديل '":"value='اضافه'") class="btn btn-primary" />
+    <input type="submit" @Html.Raw(ViewData["Title"].ToString() == "Edit" ? "value=' تعديل '" : "value='اضافه'") class="btn btn-primary" />
 
-    </div>
+</div>
 <script src="~/lib/ckeditor/ckeditor.js">
 </script>
 <script>

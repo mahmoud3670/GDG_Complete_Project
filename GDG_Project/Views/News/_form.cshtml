@@ -1,10 +1,16 @@
 ﻿@model GDG_Project.Models.News
-
+@if (ViewBag.mes != null)
+{
+    <div class="alert alert-danger fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Warning!</strong> @ViewBag.mes.
+    </div>
+}
 @if (ViewData["Title"].ToString() == "Edit")
 {
     <input type="hidden" asp-for="NewsId" />
     @*<input type="hidden" asp-for="NewsDate" />
-    <input type="hidden" asp-for="NewsImg" />*@
+        <input type="hidden" asp-for="NewsImg" />*@
 }
 
 <div class="form-group">
@@ -15,7 +21,7 @@
 
 <div class="form-group">
     <label class="control-label">صوره المقال</label>
-    <input class="form-control" type="file" accept=".jpg,.png" name="files" @(ViewData["Title"].ToString() == "Edit" ? "" : "required")  />
+    <input class="form-control" type="file" accept=".jpg,.png" name="files" @(ViewData["Title"].ToString() == "Edit" ? "" : "required") />
     <span asp-validation-for="NewsImg" class="text-danger"></span>
 </div>
 
@@ -32,7 +38,7 @@
     </div>
     <!-- /.box-header -->
     <div class="box-body pad">
-        <textarea asp-for="NewsContent" cols="80" id="editor1" rows="10" data-sample-short" required ></textarea>
+        <textarea asp-for="NewsContent" cols="80" id="editor1" rows="10" data-sample-short" required></textarea>
 
     </div>
     <span asp-validation-for="NewsContent" class="text-danger"></span>
@@ -42,11 +48,11 @@
     <h1>@ViewBag.ex</h1>
 }
 
-    <div class="form-group">
+<div class="form-group">
 
-        <input type="submit" @Html.Raw(ViewData["Title"].ToString() == "Edit" ? "value=' تعديل '" : "value='اضافه'") class="btn btn-primary" />
+    <input type="submit" @Html.Raw(ViewData["Title"].ToString() == "Edit" ? "value=' تعديل '" : "value='اضافه'") class="btn btn-primary" />
 
-    </div>
+</div>
 
 <script src="~/lib/ckeditor/ckeditor.js">
 </script>
