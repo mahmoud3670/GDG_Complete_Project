@@ -17,7 +17,7 @@ namespace GDG_Project.Controllers
         {
             _sessionTracing = sessionTracing;
         }
-        public IActionResult Index()
+        public ActionResult Index()
         {
             var user = _sessionTracing.Authorization();
             if ((user != null) && (user.EmpPostion == user.admin|| user.EmpPostion == user.dataEntry))
@@ -91,8 +91,8 @@ namespace GDG_Project.Controllers
                 return View(news);
             }
             catch (Exception e)
-            {
-                ViewBag.ex = e;
+            { ViewBag.mes = "we sory cant add now ";
+                _sessionTracing.LogEventError(e.TargetSite.ToString(), _sessionTracing.Authorization().EmpInfo, DateTime.Now + e.Message);
                 return View(news);
             }
         
@@ -162,7 +162,8 @@ namespace GDG_Project.Controllers
             }
             catch(Exception e)
             {
-                ViewBag.ex=e;
+                 ViewBag.mes = "we sory cant add now ";
+                _sessionTracing.LogEventError(e.TargetSite.ToString(), _sessionTracing.Authorization().EmpInfo, DateTime.Now + e.Message);
                 return View(news);
             }
         }
@@ -181,7 +182,7 @@ namespace GDG_Project.Controllers
             return new RedirectResult(_sessionTracing.RoutPage());
         }
 
-        public IActionResult ContactUs()
+        public ActionResult ContactUs()
         {
             var user = _sessionTracing.Authorization();
             if ((user != null) && (user.EmpPostion == user.admin ))
@@ -192,7 +193,7 @@ namespace GDG_Project.Controllers
             return new RedirectResult(_sessionTracing.RoutPage());
         }
 
-        public IActionResult ReadContactUs(int? id)
+        public ActionResult ReadContactUs(int? id)
         {
             var user = _sessionTracing.Authorization();
             if ((user != null) && (user.EmpPostion == user.admin))
@@ -214,7 +215,7 @@ namespace GDG_Project.Controllers
             return new RedirectResult(_sessionTracing.RoutPage());
 
         }
-        public IActionResult DeleteContactUs(int? id)
+        public ActionResult DeleteContactUs(int? id)
         {
             var user = _sessionTracing.Authorization();
             if ((user != null) && (user.EmpPostion == user.admin))
@@ -236,7 +237,64 @@ namespace GDG_Project.Controllers
             return new RedirectResult(_sessionTracing.RoutPage());
     }
 
+
+
+     public ActionResult LogIndex()
+        {
+            var user = _sessionTracing.Authorization();
+            if ((user != null) && (user.EmpPostion == user.admin))
+            {
+
+                var Model=_GDGContext.LogEvent.Include(x=>x.EventActorNavigation).ToList();
+                return View(Model);
+
+        }
+            return new RedirectResult(_sessionTracing.RoutPage());
+    }
+        public ActionResult DetailsLog(int? id)
+        {
+            var user = _sessionTracing.Authorization();
+            if ((user != null) && (user.EmpPostion == user.admin))
+            {
+                if (id == null)
+                {
+                    return Redirect(nameof(LogIndex));
+                }
+                var Model = _GDGContext.LogEvent.Where(x=>x.LogId==id).Include(x=>x.EventActorNavigation).FirstOrDefault();
+                if (Model == null)
+                {
+                    return Redirect(nameof(LogIndex));
+                }
+                return View(Model);
+
+            }
+            return new RedirectResult(_sessionTracing.RoutPage());
+        }
+        public ActionResult DeleteLog(int? id)
+        {
+            var user = _sessionTracing.Authorization();
+            if ((user != null) && (user.EmpPostion == user.admin))
+            {
+                if (id == null)
+                {
+                    return Redirect(nameof(LogIndex));
+                }
+                var Model = _GDGContext.LogEvent.Where(x => x.LogId == id).FirstOrDefault();
+                if (Model == null)
+                {
+                    return Redirect(nameof(LogIndex));
+                }
+                _GDGContext.LogEvent.Remove(Model);
+                _GDGContext.SaveChanges();
+                return Redirect(nameof(LogIndex));
+
+            }
+            return new RedirectResult(_sessionTracing.RoutPage());
+        }
+
+
+
     }
 
-   
+
 }

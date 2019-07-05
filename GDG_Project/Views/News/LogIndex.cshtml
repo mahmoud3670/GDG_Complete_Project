@@ -1,0 +1,63 @@
+﻿@model IEnumerable<GDG_Project.Models.LogEvent>
+
+@{
+    ViewData["Title"] = "LogIndex";
+    Layout = "~/Views/Shared/_BackeLayout.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    
+                    <!-- /.box-header -->
+                    <div class="box-body">
+
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th># </th>
+                                    <th>Link</th>
+                                    <th> Actor</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.LogId</td>
+                                        <td> @item.EventName</td>
+                                        <td> @item.EventActorNavigation.PName</td>
+                                        
+                                        <td>
+                                            &nbsp &nbsp
+                                            <a asp-action="DetailsLog" asp-route-id="@item.LogId"><i class="far fa-eye"></i></a>
+                                            &nbsp &nbsp
+                                            <a asp-action="DeleteLog" asp-route-id="@item.LogId"><i class="fas fa-trash-alt"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+
+
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+

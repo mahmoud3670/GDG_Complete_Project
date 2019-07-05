@@ -1,11 +1,5 @@
 ﻿@model GDG_Project.Models.Tournaments
-@if (ViewBag.mes != null)
-{
-    <div class="alert alert-danger fade in">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong>Warning!</strong> @ViewBag.mes.
-    </div>
-}
+
     <div class="box-body">
 
         <div class="form-group">
@@ -58,7 +52,8 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body pad">
-                <textarea asp-for="TourDescription" id="editor1" name="editor1" rows="10" cols="80"></textarea>
+                <textarea asp-for="TourDescription" cols="80" id="editor1" rows="10" data-sample-short"></textarea>
+               
 
             </div>
             <span asp-validation-for="TourDescription" class="text-danger"></span>

@@ -35,10 +35,10 @@ namespace GDG_Project.Controllers
         // GET: Tournaments
         public ActionResult Index()
         {
-            var Model = (from t in _GDGContext.Tournaments
-                              join p in _GDGContext.PersonInfo
-                              on t.MemberInfo equals p.PId
-                              select p).ToList();
+            var Model = (from p in _GDGContext.PersonInfo
+                 join t in _GDGContext.Tournaments
+                 on p.PId equals t.MemberInfo
+                 select p).ToList();
 
             return View(Model);
         }
@@ -103,8 +103,9 @@ namespace GDG_Project.Controllers
                         //save data in db
                         _GDGContext.Add(tournaments);
                         tournaments.MemberImg = "/img/Tour/" + imgName;
-                        int x = 10-10; int y = 10 / x;
+                      
                         _GDGContext.SaveChanges();
+                        
                         return RedirectToAction(nameof(Index));
 
 
@@ -123,8 +124,8 @@ namespace GDG_Project.Controllers
             {
                 ViewData["ActId"] = new SelectList(_GDGContext.Activates, "ActId", "ActName", tournaments.ActId);
                 ViewData["MemberInfo"] = new SelectList(_GDGContext.PersonInfo.Where(x => x.PType != x.EmployeesLabel), "PId", "PName", tournaments.MemberInfo);
-                ViewBag.mes = e.HelpLink;
-                _sessionTracing.LogEventError("/Tournaments/Create", _sessionTracing.Authorization().EmpId, DateTime.Now + e.Message);
+                ViewBag.mes = "we sory cant add now ";
+                _sessionTracing.LogEventError(e.TargetSite.ToString(), _sessionTracing.Authorization().EmpInfo, DateTime.Now + e.Message);
                 return View(tournaments);
 
             }
@@ -132,26 +133,24 @@ namespace GDG_Project.Controllers
         }
 
         //// GET: Tournaments/Edit/5
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        public ActionResult Edit(int? id)
+        {
+            //if (id == null)
+            //{
+                return RedirectToAction(nameof(Index));
+            //}
 
-        //    var tournaments = await _context.Tournaments.FindAsync(id);
-        //    if (tournaments == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    ViewData["ActId"] = new SelectList(_context.Activates, "ActId", "ActDescription", tournaments.ActId);
-        //    ViewData["MemberInfo"] = new SelectList(_context.PersonInfo, "PId", "PAdress", tournaments.MemberInfo);
-        //    return View(tournaments);
-        //}
+            //var tournaments = _GDGContext.Tournaments.Find(id);
+            //if (tournaments == null)
+            //{
+            //    return RedirectToAction(nameof(Index));
+            //}
+            //ViewData["ActId"] = new SelectList(_context.Activates, "ActId", "ActDescription", tournaments.ActId);
+            //ViewData["MemberInfo"] = new SelectList(_context.PersonInfo, "PId", "PAdress", tournaments.MemberInfo);
+            //return View(tournaments);
+        }
 
-        //// POST: Tournaments/Edit/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         //[HttpPost]
         //[ValidateAntiForgeryToken]
         //public async Task<IActionResult> Edit(int id, [Bind("TourId,MemberInfo,TourName,TourDescription,TourDate,MemberImg,MemberLevel,ActId")] Tournaments tournaments)

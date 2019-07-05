@@ -129,7 +129,8 @@ namespace GDG_Project.Controllers
                     ViewData["MemberInfo"] = new SelectList(_gDGContext.PersonInfo.Where(x => x.PType == x.MembersLabel), "PId", "PName");
                     ViewData["SchoolId"] = new SelectList(_gDGContext.School, "SchoolId", "SchoolName");
                     ViewData["TrainerCode"] = new SelectList(_gDGContext.Trainer.Include(x => x.TrainerInfoNavigation), "TrainerCode", "TrainerInfoNavigation.PName");
-                    ViewBag.mes = "sorry we cant add now";
+                    ViewBag.mes = "we sory cant add now ";
+                _sessionTracing.LogEventError(e.TargetSite.ToString(), _sessionTracing.Authorization().EmpInfo, DateTime.Now + e.Message);
 
                     return View(payment);
 

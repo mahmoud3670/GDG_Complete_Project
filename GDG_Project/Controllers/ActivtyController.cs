@@ -91,8 +91,8 @@ namespace GDG_Project.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.mes = "sorry cant add Now ";
-                _sessionTracing.LogEventError("/Activty/Create", _sessionTracing.Authorization().EmpId, DateTime.Now + e.Message);
+                ViewBag.mes = "we sory cant add now ";
+                _sessionTracing.LogEventError(e.TargetSite.ToString(), _sessionTracing.Authorization().EmpInfo, DateTime.Now + e.Message);
                 return View(activates);
             }
         }
@@ -154,8 +154,9 @@ namespace GDG_Project.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.mes = "sorry cant add Now ";
-                _sessionTracing.LogEventError("/Activty/Edit", _sessionTracing.Authorization().EmpId, DateTime.Now + e.Message);
+               
+                ViewBag.mes = "we sory cant add now ";
+                _sessionTracing.LogEventError(e.TargetSite.ToString(), _sessionTracing.Authorization().EmpInfo, DateTime.Now + e.Message);
                 return View(activates);
             }
         }

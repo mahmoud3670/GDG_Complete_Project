@@ -96,7 +96,8 @@ namespace GDG_Project.Controllers
                     {
                         transaction.Rollback();
                         ViewBag.selectListItem = Depart();
-                        ViewBag.mes = e;
+                      ViewBag.mes = "we sory cant add now ";
+                _sessionTracing.LogEventError(e.TargetSite.ToString(), _sessionTracing.Authorization().EmpInfo, DateTime.Now + e.Message);
                         return View(emp);
                     }
                 }
@@ -167,7 +168,8 @@ namespace GDG_Project.Controllers
                     {
                         transaction.Rollback();
                         ViewBag.selectListItem = Depart();
-                        ViewBag.mes = e;
+                        ViewBag.mes = "we sory cant add now ";
+                _sessionTracing.LogEventError(e.TargetSite.ToString(), _sessionTracing.Authorization().EmpInfo, DateTime.Now + e.Message);
                         return View(emp);
                     }
                 }
@@ -293,7 +295,8 @@ namespace GDG_Project.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.ex = e;
+                ViewBag.mes = "we sory cant add now ";
+                _sessionTracing.LogEventError(e.TargetSite.ToString(), _sessionTracing.Authorization().EmpInfo, DateTime.Now + e.Message);
                 ViewBag.EmpID = find(id);
                 return View(timeMachine);
             }

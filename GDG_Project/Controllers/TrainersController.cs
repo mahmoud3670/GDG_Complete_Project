@@ -57,7 +57,7 @@ namespace GDG_Project.Controllers
         }
 
         // GET: Trainers/Create
-        public IActionResult Create()
+        public ActionResult Create()
         {
 
             var user = _sessionTracing.Authorization();
@@ -76,7 +76,7 @@ namespace GDG_Project.Controllers
       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("TrainerCode,TrainerInfo,TrainerAct,TrainerActive,TrainerStartDay")] Trainer trainer)
+        public ActionResult Create( Trainer trainer)
         {
             if (ModelState.IsValid == true)
             {
@@ -94,11 +94,12 @@ namespace GDG_Project.Controllers
                 _gDGContext.SaveChanges();
                 return Redirect(nameof(Index));
             }
-            catch
+            catch(Exception e)
             {
                 ViewData["TrainerAct"] = new SelectList(_gDGContext.Activates, "ActId", "ActName", trainer.TrainerAct);
                 ViewData["TrainerInfo"] = new SelectList(_gDGContext.PersonInfo.Where(x => x.PType == x.TrainerLabel), "PId", "PName", trainer.TrainerInfo);
-                ViewBag.mes = "لم يتم حفظ التعديلات ";
+                ViewBag.mes = "we sory cant add now ";
+                _sessionTracing.LogEventError(e.TargetSite.ToString(), _sessionTracing.Authorization().EmpInfo, DateTime.Now + e.Message);
                 return View(trainer);
             }
         }
@@ -110,7 +111,7 @@ namespace GDG_Project.Controllers
         }
 
         // GET: Trainers/Edit/5
-        public IActionResult Edit(int? id)
+        public ActionResult Edit(int? id)
         {
 
             var user = _sessionTracing.Authorization();
@@ -163,11 +164,12 @@ namespace GDG_Project.Controllers
                         _gDGContext.SaveChanges();
                         return Redirect("Trainers/Details/" + trainer.TrainerInfo);
                     }
-                    catch
+                    catch(Exception e)
                     {
                         ViewData["TrainerAct"] = new SelectList(_gDGContext.Activates, "ActId", "ActName", trainer.TrainerAct);
                         ViewData["TrainerInfo"] = new SelectList(_gDGContext.PersonInfo.Where(x => x.PType == x.TrainerLabel), "PId", "PName", trainer.TrainerInfo);
-                        ViewBag.mes = "لم يتم حفظ التعديلات ";
+                        ViewBag.mes = "we sory cant add now ";
+                _sessionTracing.LogEventError(e.TargetSite.ToString(), _sessionTracing.Authorization().EmpInfo, DateTime.Now + e.Message);
                         return View(trainer);
                     }
 

@@ -16,14 +16,7 @@
                     <div class="box-header">
                         <h3 class="box-title"> @ViewBag.EmpID.EmpInfoNavigation.PName </h3>
                     </div>
-                    @{if (ViewBag.mes != null)
-                        {
-                            <div class="alert alert-danger alert-dismissible" id="myAlert">
-                                <a href="#" class="close">&times;</a>
-                                <strong>عذرا!</strong>@ViewBag.mes.
-                            </div>
-                        }
-                    }
+                  
                     <!-- /.box-header -->
                     <div class="box-body">
 
@@ -55,12 +48,7 @@
                             </div>
                         </form>
                         <p>
-                            @{
-                                if (ViewBag.ex != null)
-                                {
-                                    Write(ViewBag.ex);
-                                }
-                        }
+                            
                     </p>
 
                 </div>

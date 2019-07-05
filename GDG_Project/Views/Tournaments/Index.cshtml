@@ -37,7 +37,7 @@
                                               <tr>
                                                <td>@item.PId</td>
                                                <td>@item.PName</td>
-                                               <td> @item.Tournaments.Count() بطوله </td>
+                                               <td>@item.Tournaments.Count() بطوله </td>
                                                <td>@item.Tournaments.Select(x => x.TourDate).LastOrDefault().ToString("dd/MM/yyyy")</td>
                                                <td> &nbsp &nbsp <a asp-action="ViewTour" asp-route-id="@item.PId" ><i class="far fa-eye"></i></a>
                                                 </tr>

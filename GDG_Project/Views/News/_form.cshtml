@@ -1,11 +1,5 @@
 ﻿@model GDG_Project.Models.News
-@if (ViewBag.mes != null)
-{
-    <div class="alert alert-danger fade in">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong>Warning!</strong> @ViewBag.mes.
-    </div>
-}
+
 @if (ViewData["Title"].ToString() == "Edit")
 {
     <input type="hidden" asp-for="NewsId" />
@@ -43,10 +37,7 @@
     </div>
     <span asp-validation-for="NewsContent" class="text-danger"></span>
 </div>
-@if (ViewBag.ex != null)
-{
-    <h1>@ViewBag.ex</h1>
-}
+
 
 <div class="form-group">
 

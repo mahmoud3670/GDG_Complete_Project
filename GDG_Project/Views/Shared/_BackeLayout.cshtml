@@ -152,6 +152,7 @@
                                 <!--+++++++++++++++++++++++ Super Admin Ony +++++++++++++++++++++++++++-->
                                 <li><a asp-controller="Activty" asp-action="Index"><i class="fas fa-universal-access fa-1x"></i> &nbsp &nbsp  الانشطه  </a></li>
                                 <li><a asp-controller="School" asp-action="Index"><i class="fas fa-vihara fa-1x"></i> &nbsp &nbsp المدارس </a></li>
+                                <li><a asp-controller="News" asp-action="LogIndex"><i class="fas fa-vihara fa-1x"></i> &nbsp &nbsp LogEvent </a></li>
                             }
                             <!--+++++++++++++++++++++++ Super Admin Ony +++++++++++++++++++++++++++-->
                             @if (_Tracing.Authorization().EmpPostion == _Tracing.Authorization().HR || _Tracing.Authorization().EmpPostion == _Tracing.Authorization().admin || _Tracing.Authorization().EmpPostion == _Tracing.Authorization().dataEntry)
@@ -183,7 +184,7 @@
                                 <li><a asp-controller="Department" asp-action="Index"><i class="fab fa-codepen"></i> &nbsp &nbsp الاقسام   </a></li>
                                 <li><a asp-controller="Employee" asp-action="Index"><i class="fas fa-user "></i> &nbsp &nbsp العاملين   </a></li>
                                 <li><a asp-controller="Employee" asp-action="EmpSalaryIndex"><i class="fas fa-piggy-bank fa-1x"></i> &nbsp &nbsp مرتبات الموظفين </a></li>
-                                <li><a href="../TSalary/tsalary.html"><i class="fas fa-search-dollar fa-1x"></i> &nbsp &nbsp مرتبات المدربين   </a></li>
+                                @*<li><a href="../TSalary/tsalary.html"><i class="fas fa-search-dollar fa-1x"></i> &nbsp &nbsp مرتبات المدربين   </a></li>*@
                                
 
 
@@ -196,7 +197,13 @@
             </section>
             <!-- /.sidebar -->
         </aside>
-
+@if (ViewBag.mes != null)
+{
+    <div class="alert alert-danger fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+       <center> <strong>Warning!</strong> @ViewBag.mes .</center> 
+    </div>
+}
         @RenderBody()
 
         <footer class="main-footer">

@@ -1,0 +1,42 @@
+﻿@model GDG_Project.Models.LogEvent
+
+@{
+    ViewData["Title"] = "DetailsLog";
+    Layout = "~/Views/Shared/_BackeLayout.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h1 class="box-title"> @Model.EventActorNavigation.PName </h1>
+                        &nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp
+                        <a asp-action="DeleteLog" asp-route-id="@Model.LogId"><i class="fas fa-trash-alt "></i></a>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+
+                        <div class="jumbotron">
+                            <div class="container">
+                                <p>Action Url : @Model.EventName</p>
+                              <hr />
+                                <p>@Model.EventReport</p>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>

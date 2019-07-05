@@ -186,12 +186,10 @@ namespace GDG_Project.Models
                 entity.Property(e => e.LogId).HasColumnName("LogID");
 
                 entity.Property(e => e.EventName)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                    .IsRequired();
 
                 entity.Property(e => e.EventReport)
-                    .IsRequired()
-                    .HasMaxLength(250);
+                    .IsRequired();
 
                 entity.HasOne(d => d.EventActorNavigation)
                     .WithMany(p => p.LogEvent)

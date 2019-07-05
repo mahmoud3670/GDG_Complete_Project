@@ -19,20 +19,20 @@ namespace GDG_Project.Controllers
             _GDGContext = GDGContext;
             _sessionTracing = sessionTracing;
         }
-        public IActionResult Index()
+        public ActionResult Index()
         {
             var model = _GDGContext.Activates.Where(x=>x.ActActive==x.Active).ToList();
             ViewBag.NewsViews = _GDGContext.News.OrderByDescending(x => x.NewsDate).Take(5).ToList();            
             return View(model);
         }
-        public IActionResult Contact()
+        public ActionResult Contact()
         {
 
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Contact(ContactUs contact)
+        public ActionResult Contact(ContactUs contact)
         {
             try
             {
@@ -49,35 +49,37 @@ namespace GDG_Project.Controllers
                 ViewBag.welcom = "notDone";
                 return View(contact);
             }
-            catch
+            catch(Exception e)
             {
                 ViewBag.welcom = "notDone";
+                _sessionTracing.LogEventError(e.TargetSite.ToString(), 19, DateTime.Now + e.Message);
                 return View(contact);
             }
 
             
         }
         [HttpGet]
-        public IActionResult Search(string name)
+        public ActionResult Search(string name)
         {
             try
             {
                 if (name == null)
                 {
-                    ViewBag.welcom = "notDone";
+                    ViewBag.welcom = "We cant find ";
                     return View();
                 }
-                var search = _GDGContext.PersonInfo.Where(x=>x.PName.Contains(name));
+                var search = _GDGContext.PersonInfo.Where(x=>x.PName.Contains(name)&& x.PType ==x.MembersLabel);
                 if (search != null && search.Count()>0)
                 {
                     return View(search);
                 }
-                ViewBag.welcom = "notDone";
+                ViewBag.welcom = "We cant find"+name;
                 return View();
             }
-            catch
+            catch (Exception e)
             {
-                ViewBag.welcom = "notDone";
+                ViewBag.welcom = "We cant find";
+                _sessionTracing.LogEventError(e.TargetSite.ToString(), 19, DateTime.Now + e.Message);
                 return View();
             }  
         }
@@ -89,7 +91,7 @@ namespace GDG_Project.Controllers
                 return RedirectToAction("Search");
             }
 
-            var model = _GDGContext.PersonInfo.Find(id);
+            var model = _GDGContext.PersonInfo.AsNoTracking().Where(x=>x.PId==id).Include(x=>x.Tournaments).Include(x=>x.Payment).FirstOrDefault();
             if (model != null)
             {
                 return View(model);
@@ -98,7 +100,7 @@ namespace GDG_Project.Controllers
            
         }
 
-        public IActionResult News(Double pageNumber =0)
+        public ActionResult News(Double pageNumber =0)
         {
           var News = _GDGContext.News.OrderByDescending(x => x.NewsDate).ToList();
             Double pageZise = 3;
@@ -121,7 +123,7 @@ namespace GDG_Project.Controllers
             return View(News);
         }
         [HttpGet]
-        public IActionResult NewsDetails(int? id)
+        public ActionResult NewsDetails(int? id)
         {
             if (id == null)
             {
@@ -138,7 +140,7 @@ namespace GDG_Project.Controllers
             return View(newsDetail);
         }
 
-        public IActionResult ActView(int? id)
+        public ActionResult ActView(int? id)
         {
             if (id == null) {
                 return RedirectToAction(nameof(Index));
@@ -151,12 +153,12 @@ namespace GDG_Project.Controllers
             ViewBag.Schools = _GDGContext.School.Where(x => x.SchoolAct == id && x.SchoolActive == x.Active).ToList();
             return View(actID);
         }
-        public IActionResult Login()
+        public ActionResult Login()
         {
             return View();
         }
         [HttpPost]
-        public IActionResult Login(string UserName, string UserPassword)
+        public ActionResult Login(string UserName, string UserPassword)
        {
             if (string.IsNullOrEmpty(UserName) || string.IsNullOrEmpty(UserPassword))
             {
@@ -176,7 +178,7 @@ namespace GDG_Project.Controllers
         }
       
 
-        public IActionResult Logout()
+        public ActionResult Logout()
         {
             _sessionTracing.Logout();
             return RedirectToAction(nameof(Login));

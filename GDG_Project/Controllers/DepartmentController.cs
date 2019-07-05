@@ -67,8 +67,8 @@ namespace GDG_Project.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.mes = "sorry cant add Now ";
-                _sessionTracing.LogEventError(e.HelpLink, _sessionTracing.Authorization().EmpId, DateTime.Now + e.Message);
+                ViewBag.mes = "we sory cant add now ";
+                _sessionTracing.LogEventError(e.TargetSite.ToString(), _sessionTracing.Authorization().EmpInfo, DateTime.Now + e.Message);
                 return View(department);
             }
         }
@@ -117,7 +117,8 @@ namespace GDG_Project.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.ex = e;
+                ViewBag.mes = "we sory cant add now ";
+                _sessionTracing.LogEventError(e.TargetSite.ToString(), _sessionTracing.Authorization().EmpInfo, DateTime.Now + e.Message);
                 return View(department);
             }
         }
