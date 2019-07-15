@@ -43,7 +43,7 @@ namespace GDG_Project.Controllers
                     _GDGContext.ContactUs.Add(contact);
                     _GDGContext.SaveChanges();
                     ViewBag.welcom = "done";
-                    return RedirectToAction("Index");
+                    return Redirect(nameof(Index));
 
                 }
                 ViewBag.welcom = "notDone";
@@ -65,7 +65,7 @@ namespace GDG_Project.Controllers
             {
                 if (name == null)
                 {
-                    ViewBag.welcom = "We cant find ";
+                    ViewBag.welcom = "notDone";
                     return View();
                 }
                 var search = _GDGContext.PersonInfo.Where(x=>x.PName.Contains(name)&& x.PType ==x.MembersLabel);
@@ -73,12 +73,12 @@ namespace GDG_Project.Controllers
                 {
                     return View(search);
                 }
-                ViewBag.welcom = "We cant find"+name;
+                ViewBag.welcom = "notDone";
                 return View();
             }
             catch (Exception e)
             {
-                ViewBag.welcom = "We cant find";
+                ViewBag.welcom = "notDone";
                 _sessionTracing.LogEventError(e.TargetSite.ToString(), 19, DateTime.Now + e.Message);
                 return View();
             }  
@@ -88,15 +88,19 @@ namespace GDG_Project.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction("Search");
+                return RedirectToAction(nameof(Index));
             }
 
             var model = _GDGContext.PersonInfo.AsNoTracking().Where(x=>x.PId==id).Include(x=>x.Tournaments).Include(x=>x.Payment).FirstOrDefault();
             if (model != null)
             {
+                ViewBag.Activty = _GDGContext.Member.Where(x => x.MemberInfo == id).Include(x=>x.ActInfoNavigation).ToList();
+                
+                ViewBag.tour = _GDGContext.Tournaments.Where(x => x.MemberInfo == id).ToList();
                 return View(model);
+              
             }
-            return RedirectToAction("Search");
+            return RedirectToAction(nameof(Index));
            
         }
 

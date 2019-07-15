@@ -33,7 +33,8 @@ namespace GDG_Project.Controllers
         public ActionResult Index()
         {
            
-                var activty = _GDGContext.Activates.ToList();
+                var activty = _GDGContext.Activates.Include(x=>x.Member).ToList();
+          
                 return View(activty);
            
         }
@@ -54,8 +55,8 @@ namespace GDG_Project.Controllers
         // GET: Activty/Create
         public ActionResult Create()
         {
-            
-                return View();
+            Activates Model = new Activates();
+                return View(Model);
             
         }
 

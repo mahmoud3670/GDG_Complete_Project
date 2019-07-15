@@ -7,13 +7,13 @@ namespace GDG_Project.Models
     {
         public Activates()
         {
-            Active = true;
-            NotActive = false;
-            
+            Member = new HashSet<Member>();
             School = new HashSet<School>();
             Tournaments = new HashSet<Tournaments>();
             Trainer = new HashSet<Trainer>();
         }
+        public bool Active = true;
+        public bool NotActive = false;
 
         public short ActId { get; set; }
         public string ActName { get; set; }
@@ -22,11 +22,9 @@ namespace GDG_Project.Models
         public bool? ActActive { get; set; }
         public string ActDescription { get; set; }
 
-      
+        public virtual ICollection<Member> Member { get; set; }
         public virtual ICollection<School> School { get; set; }
         public virtual ICollection<Tournaments> Tournaments { get; set; }
         public virtual ICollection<Trainer> Trainer { get; set; }
-        public bool Active { get; }
-        public bool NotActive { get; }
     }
 }

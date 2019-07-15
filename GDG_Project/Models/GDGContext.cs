@@ -21,6 +21,7 @@ namespace GDG_Project.Models
         public virtual DbSet<EmpSalary> EmpSalary { get; set; }
         public virtual DbSet<Employees> Employees { get; set; }
         public virtual DbSet<LogEvent> LogEvent { get; set; }
+        public virtual DbSet<Member> Member { get; set; }
         public virtual DbSet<News> News { get; set; }
         public virtual DbSet<Payment> Payment { get; set; }
         public virtual DbSet<PersonInfo> PersonInfo { get; set; }
@@ -186,16 +187,43 @@ namespace GDG_Project.Models
                 entity.Property(e => e.LogId).HasColumnName("LogID");
 
                 entity.Property(e => e.EventName)
-                    .IsRequired();
+                    .IsRequired()
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.EventReport)
-                    .IsRequired();
+                    .IsRequired()
+                    .HasMaxLength(250);
 
                 entity.HasOne(d => d.EventActorNavigation)
                     .WithMany(p => p.LogEvent)
                     .HasForeignKey(d => d.EventActor)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_LogEvent_EventActor");
+            });
+
+            modelBuilder.Entity<Member>(entity =>
+            {
+                entity.Property(e => e.ActInfo).HasColumnName("Act_Info");
+
+                entity.Property(e => e.MemberActive).HasColumnName("Member_Active");
+
+                entity.Property(e => e.MemberInfo).HasColumnName("Member_Info");
+
+                entity.Property(e => e.StartDate)
+                    .HasColumnName("Start_Date")
+                    .HasColumnType("date");
+
+                entity.HasOne(d => d.ActInfoNavigation)
+                    .WithMany(p => p.Member)
+                    .HasForeignKey(d => d.ActInfo)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Member_ToActivty");
+
+                entity.HasOne(d => d.MemberInfoNavigation)
+                    .WithMany(p => p.Member)
+                    .HasForeignKey(d => d.MemberInfo)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Member_PersonInfo");
             });
 
             modelBuilder.Entity<News>(entity =>
@@ -256,7 +284,7 @@ namespace GDG_Project.Models
                     .WithMany(p => p.Payment)
                     .HasForeignKey(d => d.MemberInfo)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Payment_Member_Info");
+                    .HasConstraintName("FK_Payment_Member_Code");
 
                 entity.HasOne(d => d.School)
                     .WithMany(p => p.Payment)
@@ -459,7 +487,7 @@ namespace GDG_Project.Models
                     .WithMany(p => p.Tournaments)
                     .HasForeignKey(d => d.MemberInfo)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Payment_MemberInfo");
+                    .HasConstraintName("FK_Tour_Member_Info");
             });
 
             modelBuilder.Entity<Trainer>(entity =>

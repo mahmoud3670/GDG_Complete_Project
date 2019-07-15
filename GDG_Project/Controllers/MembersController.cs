@@ -121,6 +121,17 @@ namespace GDG_Project.Controllers
                 try
                 {
                     _gDGContext.Payment.Add(payment);
+                    short schoolCheeck = _gDGContext.School.Find(payment.SchoolId).SchoolAct;
+                    var ActCheck = _gDGContext.Member.Where(x => x.MemberInfo == payment.MemberInfo && x.ActInfo == schoolCheeck).Count();
+                    if (ActCheck == 0)
+                    {
+                        Member member = new Member();
+                        member.ActInfo = schoolCheeck;
+                        member.MemberActive = true;
+                        member.StartDate = DateTime.Now;
+                        member.MemberInfo = payment.MemberInfo;
+                        _gDGContext.Member.Add(member);
+                    }
                     _gDGContext.SaveChanges();
                     return RedirectToAction(nameof(Index));
                 }

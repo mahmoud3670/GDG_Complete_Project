@@ -9,12 +9,12 @@
         {
 
             <div class="row">
-                <div class="col-sm-6 col-md-4">
+                <div class="col-sm-6 col-md-4"style="float:right">
                     <div class="thumbnail text-center">
                         <img src="@item.PImg" alt="@item.PImg">
                         <div class="caption">
                             <h3>@item.PName</h3>
-                            <p>@item.PType</p>
+                            <p>@(item.PType==item.MembersLabel?"متدرب":"")</p>
                             <p> <a class="btn btn-primary" asp-controller="Home" asp-action="Profile" asp-route-id="@item.PId" role="button" name=10>عرض البيانات</a></p>
 
                         </div>

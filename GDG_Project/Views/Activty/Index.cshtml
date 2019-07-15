@@ -38,7 +38,7 @@
                                    <td>@item.ActId</td>
                                    <td> @item.ActName</td>
                                    <td> @(item.ActActive == item.Active ?"فعال" : "متوقف") </td>
-                                   <td>0@*item.Members.Count(x => x.MemberAct == item.ActId)*@ </td>
+                                   <td>@item.Member.Count() </td>
                                    <td> &nbsp &nbsp
                                         <a asp-action="Details" asp-route-id="@item.ActId"><i class="far fa-eye"></i></a>
                                          &nbsp &nbsp 

@@ -10,6 +10,7 @@ namespace GDG_Project.Models
         {
             Employees = new HashSet<Employees>();
             LogEvent = new HashSet<LogEvent>();
+            Member = new HashSet<Member>();
             Payment = new HashSet<Payment>();
             Tournaments = new HashSet<Tournaments>();
             Trainer = new HashSet<Trainer>();
@@ -55,6 +56,7 @@ namespace GDG_Project.Models
 
         public virtual ICollection<Employees> Employees { get; set; }
         public virtual ICollection<LogEvent> LogEvent { get; set; }
+        public virtual ICollection<Member> Member { get; set; }
         public virtual ICollection<Payment> Payment { get; set; }
         public virtual ICollection<Tournaments> Tournaments { get; set; }
         public virtual ICollection<Trainer> Trainer { get; set; }
