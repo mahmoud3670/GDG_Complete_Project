@@ -19,8 +19,16 @@
                     <div class="col-xs-6 col-md-4"><img class="img-responsive" src="@Row.NewsImg" style="height: 30vh;float:left"></div>
                     <div class="col-xs-12 col-sm-6 col-md-8">
 
-                        <p style="width:50ch;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
-                            @Html.Raw(Row.NewsContent)
+                        <p @*style="width:50ch;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;"*@>
+                            @if (Row.NewsContent.Length > 100)
+                            {
+                                @Html.Raw(Row.NewsContent.Remove(100) + ".........");
+
+                            }
+                            else
+                            {
+                                @Html.Raw(Row.NewsContent)
+                            }
                         </p>
                         <h6>تاريخ النشر : @Row.NewsDate.ToString("dd/MM/yyyy")</h6>
                         <h6>عدد المشاهدات : @Row.NewsNviwer</h6>

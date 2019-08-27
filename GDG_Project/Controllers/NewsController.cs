@@ -137,7 +137,7 @@ namespace GDG_Project.Controllers
                        // GlobalController globalController = new GlobalController(_GDGContext, _env);
                         var imgName = saveImg(file, "News");
                         news.NewsDate = oldData.NewsDate;
-                      
+                        news.NewsNviwer = oldData.NewsNviwer;
                         news.NewsImg = "/img/News/" + imgName;
                         _GDGContext.News.Update(news);
                         _GDGContext.SaveChanges();
@@ -152,6 +152,7 @@ namespace GDG_Project.Controllers
                     }
                     news.NewsDate = oldData.NewsDate;
                     news.NewsImg = oldData.NewsImg;
+                    news.NewsNviwer = oldData.NewsNviwer;
                     _GDGContext.Update(news);
                     _GDGContext.SaveChanges();
                     return RedirectToAction("Index");

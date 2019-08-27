@@ -23,37 +23,35 @@
                         <li><a href="#timeline" data-toggle="tab">السلم الزمني</a></li>
                     </ul>
                     <div class="tab-content">
-                        @{ int counter = 0;}
+                     
                         @if (ViewBag.tour != null)
                         {
                             <div class="active tab-pane" id="activity">
                                 <div id="myCarousel" class="carousel slide" data-ride="carousel">
                                     <!-- Indicators --> 
-                                    @*<ol class="carousel-indicators">
-                                        
+                                    <ol class="carousel-indicators">
+                                        @for(int i=0;i< Enumerable.Count(ViewBag.tour); i++)
+                                        {
 
-                                            <li data-target="#myCarousel" data-slide-to="@counter" class=" @(counter == 0 ? "active" :"" )"></li>
-                                            <li data-target="#myCarousel" data-slide-to="1"></li>
-                                                <li data-target="#myCarousel" data-slide-to="2"></li>
-
-                                         
-                                        
-                                    </ol>*@
+                                            <li data-target="#myCarousel" data-slide-to="@i"  @(i == 0 ?"class=active ": "" )></li>
+                                       
+                                        }
+                                    </ol>
 
 
                                     <!-- Wrapper for slides -->
                                     <div class="carousel-inner">
 
-                                        @foreach (var item in ViewBag.tour)
+                                        @for (int i =0; i < Enumerable.Count(ViewBag.tour); i++)
                                         {
-                                            <div class="item @(counter == 0 ? "active" : "")">
-                                                <img src="@item.MemberImg ">
+                                            <div class="item @(i == 0 ? "active" : "")">
+                                                <img src="@ViewBag.tour[i].MemberImg ">
                                                 <div class="carousel-caption">
-                                                    <h3>@item.TourName</h3>
-                                                    <p>@item.TourDescription</p>
+                                                    <h3>@ViewBag.tour[i].TourName</h3>
+                                                    <p>@ViewBag.tour[i].TourDescription</p>
                                                 </div>
                                             </div>
-                                            @(counter = +1);
+
                                         }
 
                                     </div>
@@ -72,7 +70,7 @@
                             </div>
                         }
                         <!-- ###################################/.tab-pane ########################################################-->
-                        @{int ActCounter = 0; }
+                     
                         @if (ViewBag.Activty != null)
                         {
                             <div class="tab-pane" id="timeline">
@@ -97,7 +95,7 @@
                                         </li>
                                         <!-- END timeline item -->
                                         <!-- timeline item -->
-                                        @(ActCounter = +1)
+                                       
                                     }
 
                                 </ul>
@@ -156,10 +154,10 @@
                                 <b>السن</b> <a class="pull-left ">@(DateTime.Now.Year - Model.PBirthDate.Year)</a>
                             </li>
                             <li class="list-group-item ">
-                                <b>عدد الانشطه</b> <a class="pull-left ">@ActCounter</a>
+                                <b>عدد الانشطه</b> <a class="pull-left ">@Enumerable.Count(ViewBag.Activty)</a>
                             </li>
                             <li class="list-group-item ">
-                                <b>الجوائز</b> <a class="pull-left ">@counter</a>
+                                <b>الجوائز</b> <a class="pull-left ">@Enumerable.Count(ViewBag.tour)</a>
                             </li>
                         </ul>
 
@@ -179,7 +177,7 @@
 
                         <strong><i class="fa fa-map-marker margin-r-5 "></i> العنوان</strong>
 
-                        <p class="text-muted ">@Model.PAdress</p>
+                        <p class="text-muted ">القاهره</p>
 
                         <hr>
 
